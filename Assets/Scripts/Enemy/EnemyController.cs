@@ -1,33 +1,41 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private float chaseSpeed = 3f;
-    [SerializeField] private float normalMoveSpeed = 1.5f;
-    [SerializeField] private float detectionRadius = 3f;
-    [SerializeField] private float randomMoveInterval = 2f;
+    [SerializeField] private float _chaseSpeed = 3f;
+    [SerializeField] private float _normalMoveSpeed = 1.5f;
+    [SerializeField] private float _detectionRadius = 3f;
+    [SerializeField] private float _randomMoveInterval = 2f;
 
-    private GameObject player;
-    private Vector2 randomDirection;
-    private float randomMoveTimer;
+    private GameObject _player;
+    private Vector2 _randomDirection;
+    private float _randomMoveTimer;
+
+    private Vector2 _pos2d
+    {
+        get => new(transform.position.x, transform.position.y);
+        set => transform.position = new Vector3(value.x, value.y, transform.position.z);
+    }
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        randomMoveTimer = randomMoveInterval;
+        _player = FindAnyObjectByType<PlayerController>().gameObject;
+        _randomMoveTimer = _randomMoveInterval;
         PickRandomDirection();
     }
 
     private void Update()
     {
-        if (player == null) return;
+        if (_player == null) return;
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, _player.transform.position);
 
-        if (distanceToPlayer <= detectionRadius)
+        if (distanceToPlayer <= _detectionRadius)
         {
             ChasePlayer();
+            _randomMoveTimer = 0;
         }
         else
         {
@@ -37,42 +45,45 @@ public class EnemyController : MonoBehaviour
 
     private void ChasePlayer()
     {
-        Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
-        RotateInDirection(directionToPlayer);
-        transform.position += (Vector3)(directionToPlayer * chaseSpeed * Time.deltaTime);
+        Vector2 directionToPlayer = (_player.transform.position - transform.position).normalized;
+        LookInDirection(directionToPlayer);
+        
+        Vector2 velocity = directionToPlayer * _chaseSpeed;
+        transform.position = GameUtils.ComputeEulerStep(_pos2d, velocity, Time.deltaTime);
     }
 
     private void RandomMovement()
     {
-        randomMoveTimer -= Time.deltaTime;
+        _randomMoveTimer -= Time.deltaTime;
 
-        if (randomMoveTimer <= 0)
+        if (_randomMoveTimer <= 0)
         {
             PickRandomDirection();
-            randomMoveTimer = randomMoveInterval;
+            
+            _randomMoveTimer = _randomMoveInterval;
         }
         
-        RotateInDirection(randomDirection);
-        transform.position += (Vector3)(randomDirection * normalMoveSpeed * Time.deltaTime);
+        Vector2 velocity = _randomDirection * _normalMoveSpeed;
+        _pos2d = GameUtils.ComputeEulerStep(_pos2d, velocity, Time.deltaTime);
     }
 
     private void PickRandomDirection()
     {
         float angle = Random.Range(0f, 360f);
-        randomDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
+        _randomDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
+        LookInDirection(_randomDirection);
     }
     
-    private void RotateInDirection(Vector2 direction)
+    private void LookInDirection(Vector2 direction)
     {
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        transform.up = direction;
     }
     
     // For debugging puproses
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
     }
     private void AimAndShoot()
     {
@@ -82,5 +93,10 @@ public class EnemyController : MonoBehaviour
     private void Shoot()
     {
         // TODO
+    }
+
+    private Vector2 get2DPos()
+    {
+        return new Vector2(transform.position.x, transform.position.y);
     }
 }
