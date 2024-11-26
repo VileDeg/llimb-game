@@ -21,7 +21,8 @@
 ### Week 2 (26. 11. - 2. 12)
 * KC: robot combat mechanics
 * VG: physics, destruction of robots
-* VG: Level obstacles, physics
+* VG: shooting mechanics + melee weapon
+* KC + MP: Level design + Navmesh
 * MP: Improve enemy AI, navigation, navmesh etc.
 
 ### Week 3 (3. 12 - 9. 12)
