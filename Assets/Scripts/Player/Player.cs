@@ -18,12 +18,12 @@ public class Player : MonoBehaviour
     private float _moveVert;
     private float _moveHoriz;
 
-    private AShooting _shooting;
+    private IAttack _attack;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _shooting = GetComponent<AShooting>();
+        _attack = GetComponent<AShooting>();
     }
 
     // Start is called before the first frame update
@@ -52,20 +52,20 @@ public class Player : MonoBehaviour
     void OnMoveVertical(InputValue value)
     {
         _moveVert = value.Get<float>();
-        Debug.Log("Got _moveVert : " + _moveVert.ToString());
+        //Debug.Log("Got _moveVert : " + _moveVert.ToString());
     }
 
     // Called by Input System
     void OnMoveHorizontal(InputValue value)
     {
         _moveHoriz = value.Get<float>();
-        Debug.Log("Got _moveHoriz: " + _moveHoriz.ToString());
+        //Debug.Log("Got _moveHoriz: " + _moveHoriz.ToString());
     }
 
     void OnAttack()
     {
         Vector3 direction = (GetCursorPos() - transform.position).normalized;
-        _shooting.Shoot(_firePoint.position - transform.position, direction);
+        _attack.Attack(_firePoint.position - transform.position, direction);
     }
 
     void LookAtCursor()

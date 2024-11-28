@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunShooting : AShooting
 {
-    public override void Shoot(Vector3 firePointOffset, Vector3 direction)
+    public override void Attack(Vector3 firePointOffset, Vector3 direction)
     {
         var bulletGO = Instantiate(
             _projectilePrefab,

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AShooting : MonoBehaviour
+public abstract class AShooting : MonoBehaviour, IAttack
 {
     [SerializeField]
     public GameObject _projectilePrefab;
@@ -10,5 +10,5 @@ public abstract class AShooting : MonoBehaviour
     [SerializeField]
     public float _projectileSpeed;
 
-    public abstract void Shoot(Vector3 firePointOffset, Vector3 direction);
+    public abstract void Attack(Vector3 attackPointOffset, Vector3 direction);
 }
