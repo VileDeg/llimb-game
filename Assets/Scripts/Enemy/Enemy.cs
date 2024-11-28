@@ -3,20 +3,40 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _chaseSpeed = 3f;
-    [SerializeField] private float _normalMoveSpeed = 1.5f;
-    [SerializeField] private float _detectionRadius = 3f;
-    [SerializeField] private float _randomMoveInterval = 2f;
+    [SerializeField] 
+    private float _chaseSpeed = 3f;
+
+    [SerializeField] 
+    private float _normalMoveSpeed = 1.5f;
+
+    [SerializeField] 
+    private float _detectionRadius = 3f;
+
+    [SerializeField] 
+    private float _randomMoveInterval = 2f;
+
+
+    [SerializeField]
+    private float _maxHealth;
+
+    [SerializeField]
+    private float _damage;
+
+    //[SerializeField]
+    //private GameObject _explosionPrefab;
+
+    private Rigidbody _rb;
+    private CircleCollider2D _collider;
 
     private GameObject _player;
     private Vector3 _randomDirection;
     private float _randomMoveTimer;
 
-    //private Vector2 _pos2d
-    //{
-    //    get => new(transform.position.x, transform.position.y);
-    //    set => transform.position = new Vector3(value.x, value.y, transform.position.z);
-    //}
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<CircleCollider2D>();
+    }
 
     private void Start()
     {

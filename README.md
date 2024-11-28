@@ -13,4 +13,4 @@
  *  EVENT HANDLERS                             *
  *  ========================================== */
 ```
-* 
+* Put `[SerializeField]` on a separate line before declaration.
