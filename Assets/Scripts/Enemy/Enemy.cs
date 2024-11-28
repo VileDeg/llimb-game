@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class EnemyController : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _chaseSpeed = 3f;
     [SerializeField] private float _normalMoveSpeed = 1.5f;
@@ -21,7 +20,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        _player = FindAnyObjectByType<PlayerController>().gameObject;
+        _player = FindAnyObjectByType<Player>().gameObject;
         _randomMoveTimer = _randomMoveInterval;
         PickRandomDirection();
     }
