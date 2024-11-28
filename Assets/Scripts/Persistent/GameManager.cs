@@ -34,6 +34,9 @@ public class GameManager : SingletonBase<GameManager>
     [SerializeField]
     private string _youDiedSceneName;
 
+    [SerializeField]
+    private Vector2 _levelDimensions;
+
     private int _currentLevelIndex = 0;
 
     // === GAME STATE
@@ -129,6 +132,15 @@ public class GameManager : SingletonBase<GameManager>
             case GameState.GameOver:
                 break;
         }
+    }
+
+    public bool EscapedLevel(Vector2 pos, Vector2 size)
+    {
+        Vector2 ps = pos + size;
+        Vector2 half = _levelDimensions * 0.5f;
+
+        return ps.x < -half.x || ps.x > half.x ||
+            ps.y < -half.y || ps.y > half.y;
     }
 
 

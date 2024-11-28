@@ -9,14 +9,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _randomMoveInterval = 2f;
 
     private GameObject _player;
-    private Vector2 _randomDirection;
+    private Vector3 _randomDirection;
     private float _randomMoveTimer;
 
-    private Vector2 _pos2d
-    {
-        get => new(transform.position.x, transform.position.y);
-        set => transform.position = new Vector3(value.x, value.y, transform.position.z);
-    }
+    //private Vector2 _pos2d
+    //{
+    //    get => new(transform.position.x, transform.position.y);
+    //    set => transform.position = new Vector3(value.x, value.y, transform.position.z);
+    //}
 
     private void Start()
     {
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
         LookInDirection(directionToPlayer);
         
         Vector2 velocity = directionToPlayer * _chaseSpeed;
-        transform.position = GameUtils.ComputeEulerStep(_pos2d, velocity, Time.deltaTime);
+        transform.position = GameUtils.ComputeEulerStep(transform.position, velocity, Time.deltaTime);
     }
 
     private void RandomMovement()
@@ -62,8 +62,8 @@ public class Enemy : MonoBehaviour
             _randomMoveTimer = _randomMoveInterval;
         }
         
-        Vector2 velocity = _randomDirection * _normalMoveSpeed;
-        _pos2d = GameUtils.ComputeEulerStep(_pos2d, velocity, Time.deltaTime);
+        Vector3 velocity = _randomDirection * _normalMoveSpeed;
+        transform.position =  GameUtils.ComputeEulerStep(transform.position, velocity, Time.deltaTime);
     }
 
     private void PickRandomDirection()
@@ -92,10 +92,5 @@ public class Enemy : MonoBehaviour
     private void Shoot()
     {
         // TODO
-    }
-
-    private Vector2 get2DPos()
-    {
-        return new Vector2(transform.position.x, transform.position.y);
     }
 }
