@@ -11,10 +11,7 @@ public class PlayerDestructable : ADestructable
         if (hostileD != null) {
             TakeDamage(hostileD.GetDamage());
             LogUtil.Info($"{GetType().Name}: took damage {hostileD.GetDamage()}");
-        }
-
-        foreach (ContactPoint2D contact in collision.contacts) {
-            Debug.DrawRay(contact.point, contact.normal, Color.red);
+            SpawnBlueCircle(collision.contacts[0].point);
         }
     }
 }

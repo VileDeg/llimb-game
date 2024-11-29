@@ -23,6 +23,8 @@ public abstract class ADestructable : MonoBehaviour
 
     public event Action<float> HealthChanged;
 
+    [SerializeField]
+    private GameObject _contactCircle;
 
     protected virtual void Awake()
     {
@@ -70,7 +72,7 @@ public abstract class ADestructable : MonoBehaviour
         DestroySelf();
     }
 
-    protected virtual void DestroySelf()
+    protected void DestroySelf()
     {
         //if (_explosionPrefab != null) {
         //    Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
@@ -79,15 +81,43 @@ public abstract class ADestructable : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected virtual void TakeDamage(float damage)
+    protected void TakeDamage(float damage)
     {
         _currentHealth = Mathf.Max(0f, _currentHealth - damage);
     }
+
+    protected void SpawnCircle(Vector3 position, Color color)
+    {
+        // Spawn a red circle at the specified position
+        if (_contactCircle != null) {
+            //position.z = -10;
+            var obj = Instantiate(_contactCircle, position, Quaternion.identity);
+            if (obj.TryGetComponent<SpriteRenderer>(out var renderer)) {
+                renderer.color = color;
+                renderer.sortingOrder = 5;
+            }
+            obj.transform.SetParent(this.transform);
+            Destroy(obj, 0.5f);
+        }
+    }
+
+    protected void SpawnRedCircle(Vector3 position)
+    {
+        SpawnCircle(position, Color.red);
+    }
+
+    protected void SpawnBlueCircle(Vector3 position)
+    {
+        SpawnCircle(position, Color.blue);
+    }
+
+
 
 
     /* *******************************
      * EVENT CALLBACKS
      * *******************************/
+
 
     protected virtual void OnHealthChanged(float health)
     {

@@ -12,17 +12,19 @@ public class EnemyDestructable : ADestructable
     [SerializeField]
     private GameObject _partsRoot;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         var allyD = collision.gameObject.GetComponent<AllyDestructor>();
         if (allyD != null ) {
             TakeDamage(allyD.GetDamage());
             LogUtil.Info($"{GetType().Name}: took damage {allyD.GetDamage()}");
+
+            SpawnRedCircle(collision.contacts[0].point);
         }
 
-        foreach (ContactPoint2D contact in collision.contacts) {
-            Debug.DrawRay(contact.point, contact.normal, Color.red);
-        }
+        //foreach (ContactPoint2D contact in collision.contacts) {
+        //    Debug.DrawRay(contact.point, contact.normal, Color.red);
+        //}
     }
 
     protected override void Die()

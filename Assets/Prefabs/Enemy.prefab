@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chaseSpeed: 3
   _normalMoveSpeed: 1.5
-  _detectionRadius: 3
+  _detectionRadius: 5
   _randomMoveInterval: 2
 --- !u!114 &562877293918012711
 MonoBehaviour:
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 20
+  _contactCircle: {fileID: 7360845480949925923, guid: da766bf2e8a44ea41834dbde021843ab, type: 3}
   _partsRoot: {fileID: 6872111978178771604}
 --- !u!1 &6690156576953227037
 GameObject:
