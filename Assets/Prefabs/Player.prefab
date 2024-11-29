@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6728538036468593262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6969215947487713216}
   - component: {fileID: 2488177146329860111}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6923444539869664477}
   - component: {fileID: 6002832757412903164}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3400275837853434521}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,8 @@ GameObject:
   - component: {fileID: 2058138832218020601}
   - component: {fileID: 1723072173284272830}
   - component: {fileID: 5280013916112778861}
-  m_Layer: 0
+  - component: {fileID: 3411160640093196726}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -393,5 +394,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434fd58b93d7f89448a478aaa44a084d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 1875691617403932040, guid: 41c18a00fa96e1440abdbd7087b94341, type: 3}
-  _bulletSpeed: 30
+  _projectilePrefab: {fileID: 1875691617403932040, guid: 41c18a00fa96e1440abdbd7087b94341, type: 3}
+  _projectileSpeed: 100
+--- !u!114 &3411160640093196726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8591318629001822280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9c7ae3427d59948a17f6ed62059642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 30

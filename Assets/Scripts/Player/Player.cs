@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(IAttack))]
 public class Player : MonoBehaviour
 {
     [SerializeField] 
@@ -70,7 +71,6 @@ public class Player : MonoBehaviour
 
     void LookAtCursor()
     {
-        LogUtil.Info($"{GetCursorPos()}");
         Vector2 direction = (GetCursorPos() - transform.position).normalized;
         transform.up = direction;
     }

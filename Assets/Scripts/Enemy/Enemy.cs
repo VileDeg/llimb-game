@@ -15,16 +15,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] 
     private float _randomMoveInterval = 2f;
 
-
-    [SerializeField]
-    private float _maxHealth;
-
-    [SerializeField]
-    private float _damage;
-
-    //[SerializeField]
-    //private GameObject _explosionPrefab;
-
     private Rigidbody _rb;
     private CircleCollider2D _collider;
 
@@ -75,7 +65,9 @@ public class Enemy : MonoBehaviour
     {
         _randomMoveTimer -= Time.deltaTime;
 
-        if (_randomMoveTimer <= 0)
+        if (_randomMoveTimer <= 0 || 
+            GameManager.Instance.EscapedLevel(
+                transform.position, new(_collider.radius, _collider.radius)))
         {
             PickRandomDirection();
             
