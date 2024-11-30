@@ -1,27 +1,36 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class EnemyController : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _chaseSpeed = 3f;
-    [SerializeField] private float _normalMoveSpeed = 1.5f;
-    [SerializeField] private float _detectionRadius = 3f;
-    [SerializeField] private float _randomMoveInterval = 2f;
+    [SerializeField] 
+    private float _chaseSpeed = 3f;
+
+    [SerializeField] 
+    private float _normalMoveSpeed = 1.5f;
+
+    [SerializeField] 
+    private float _detectionRadius = 3f;
+
+    [SerializeField] 
+    private float _randomMoveInterval = 2f;
+
+    private Rigidbody _rb;
+    private CircleCollider2D _collider;
 
     private GameObject _player;
-    private Vector2 _randomDirection;
+    private Vector3 _randomDirection;
     private float _randomMoveTimer;
 
-    private Vector2 _pos2d
+    private void Awake()
     {
-        get => new(transform.position.x, transform.position.y);
-        set => transform.position = new Vector3(value.x, value.y, transform.position.z);
+        _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<CircleCollider2D>();
     }
 
     private void Start()
     {
-        _player = FindAnyObjectByType<PlayerController>().gameObject;
+        _player = FindAnyObjectByType<Player>().gameObject;
         _randomMoveTimer = _randomMoveInterval;
         PickRandomDirection();
     }
@@ -49,22 +58,24 @@ public class EnemyController : MonoBehaviour
         LookInDirection(directionToPlayer);
         
         Vector2 velocity = directionToPlayer * _chaseSpeed;
-        transform.position = GameUtils.ComputeEulerStep(_pos2d, velocity, Time.deltaTime);
+        transform.position = GameUtils.ComputeEulerStep(transform.position, velocity, Time.deltaTime);
     }
 
     private void RandomMovement()
     {
         _randomMoveTimer -= Time.deltaTime;
 
-        if (_randomMoveTimer <= 0)
+        if (_randomMoveTimer <= 0 || 
+            GameManager.Instance.EscapedLevel(
+                transform.position, new(_collider.radius, _collider.radius)))
         {
             PickRandomDirection();
             
             _randomMoveTimer = _randomMoveInterval;
         }
         
-        Vector2 velocity = _randomDirection * _normalMoveSpeed;
-        _pos2d = GameUtils.ComputeEulerStep(_pos2d, velocity, Time.deltaTime);
+        Vector3 velocity = _randomDirection * _normalMoveSpeed;
+        transform.position =  GameUtils.ComputeEulerStep(transform.position, velocity, Time.deltaTime);
     }
 
     private void PickRandomDirection()
@@ -93,10 +104,5 @@ public class EnemyController : MonoBehaviour
     private void Shoot()
     {
         // TODO
-    }
-
-    private Vector2 get2DPos()
-    {
-        return new Vector2(transform.position.x, transform.position.y);
     }
 }

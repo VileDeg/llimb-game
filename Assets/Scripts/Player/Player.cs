@@ -4,16 +4,14 @@ using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(IAttack))]
+public class Player : MonoBehaviour
 {
     [SerializeField] 
-    private float _moveSpeed = 5f;
-
-    [SerializeField] 
-    private GameObject _bulletPrefab;
-
-    [SerializeField] 
     private Transform _firePoint;
+
+    [SerializeField] 
+    private float _moveSpeed = 5f;
 
     private Rigidbody2D _rb;
     private Vector2 _moveVelocity;
@@ -21,15 +19,23 @@ public class PlayerController : MonoBehaviour
     private float _moveVert;
     private float _moveHoriz;
 
+    private IAttack _attack;
+
+    void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _attack = GetComponent<AShooting>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        LookAtCursor();
         Move();
     }
 
@@ -47,29 +53,31 @@ public class PlayerController : MonoBehaviour
     void OnMoveVertical(InputValue value)
     {
         _moveVert = value.Get<float>();
-        Debug.Log("Got _moveVert : " + _moveVert.ToString());
+        //Debug.Log("Got _moveVert : " + _moveVert.ToString());
     }
 
     // Called by Input System
     void OnMoveHorizontal(InputValue value)
     {
         _moveHoriz = value.Get<float>();
-        Debug.Log("Got _moveHoriz: " + _moveHoriz.ToString());
+        //Debug.Log("Got _moveHoriz: " + _moveHoriz.ToString());
     }
 
-    void AimAndShoot()
+    void OnAttack()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - transform.position).normalized;
+        Vector3 direction = (GetCursorPos() - transform.position).normalized;
+        _attack.Attack(_firePoint.position - transform.position, direction);
+    }
+
+    void LookAtCursor()
+    {
+        Vector2 direction = (GetCursorPos() - transform.position).normalized;
         transform.up = direction;
-
-        if (Input.GetButtonDown("Fire1")) {
-            Shoot();
-        }
     }
 
-    void Shoot()
+    Vector3 GetCursorPos()
     {
-        Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+        Vector3 mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return mp;
     }
 }
