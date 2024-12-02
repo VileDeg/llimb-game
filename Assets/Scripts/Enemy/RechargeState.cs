@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 
-public class ReachargeState : EnemyState
+public class RechargeState : EnemyState
 {
     private float _timer;
     
-    public ReachargeState(Enemy enemy) : base(enemy) { }
+    public RechargeState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
         _enemy.Agent.isStopped = true;
+        
         _timer = _enemy.RechargeInterval;
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 public class RandomMoveState : EnemyState
 {
     private float _timer;
+    private Vector3 _randomDirection;
 
     public RandomMoveState(Enemy enemy) : base(enemy) { }
 
@@ -15,6 +16,9 @@ public class RandomMoveState : EnemyState
     public override void Update()
     {
         _timer -= Time.deltaTime;
+        
+        // Look in direction enemy is heading
+        _enemy.LookInDirection(_randomDirection);
 
         if (_timer <= 0 || _enemy.ReachedDestination())
         {
@@ -24,15 +28,7 @@ public class RandomMoveState : EnemyState
 
         if (_enemy.PlayerInDetectionRadius())
         {
-            if (_enemy.Type == EnemyType.Type3)
-            {
-                _enemy.SetState(new RotationAttackState(_enemy));
-            }
-            else
-            {
-                _enemy.SetState(new ChaseState(_enemy));
-                
-            }
+            _enemy.ChooseAttack();
         }
     }
 
@@ -43,6 +39,7 @@ public class RandomMoveState : EnemyState
 
     private void PickRandomDestination()
     {
-        _enemy.PickRandomDestination(); // Uses Enemy's NavMesh functionality
+        Vector3 randomDestination = _enemy.PickRandomDestination(); // Uses Enemy's NavMesh functionality
+        _randomDirection = (randomDestination - _enemy.transform.position).normalized;
     }
 }

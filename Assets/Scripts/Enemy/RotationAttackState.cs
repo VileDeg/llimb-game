@@ -17,7 +17,7 @@ public class RotationAttackState : EnemyState
 
         if (_timer <= 0) // Rotate if have fuel
         {
-            _enemy.SetState(new ReachargeState(_enemy));
+            _enemy.SetState(new RechargeState(_enemy));
         }
         else
         {
