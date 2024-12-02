@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 5
+  _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
 --- !u!114 &5081478982297118606
 MonoBehaviour:
@@ -442,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 5
+  _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
 --- !u!114 &2321366067790016377
 MonoBehaviour:
@@ -718,6 +720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 5
+  _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
 --- !u!114 &2759836133739604624
 MonoBehaviour:
@@ -908,6 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 5
+  _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
 --- !u!114 &6110002049949920312
 MonoBehaviour:
@@ -1173,13 +1177,43 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8891054758423692349, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2072614140952282520}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4008966636245287525}
   m_SourcePrefab: {fileID: 100100000, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
 --- !u!4 &41495355569287704 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8891054758423692349, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
   m_PrefabInstance: {fileID: 8930696319940245029}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2511496545778899767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
+  m_PrefabInstance: {fileID: 8930696319940245029}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &4008966636245287525
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2511496545778899767}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!4 &8367881927570717374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1139556645587537051, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
