@@ -24,7 +24,15 @@ public class RandomMoveState : EnemyState
 
         if (_enemy.PlayerInDetectionRadius())
         {
-            _enemy.SetState(new ChaseState(_enemy));
+            if (_enemy.Type == EnemyType.Type3)
+            {
+                _enemy.SetState(new RotationAttackState(_enemy));
+            }
+            else
+            {
+                _enemy.SetState(new ChaseState(_enemy));
+                
+            }
         }
     }
 

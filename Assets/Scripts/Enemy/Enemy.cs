@@ -4,14 +4,22 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private EnemyType type;
     [SerializeField] private float _chaseSpeed = 3f;
     [SerializeField] private float _normalMoveSpeed = 1.5f;
     [SerializeField] private float _detectionRadius = 3f;
     [SerializeField] private float _randomMoveInterval = 2f;
-
+    // Attack 
+    private float _rotationSpeed = 500f;
+    [SerializeField] private float _rotationAttackInterval = 5f;
+    [SerializeField] private float _rechargeInterval = 3f;
+    
     public NavMeshAgent Agent { get; private set; }
+    public EnemyType Type => type;
     public float DetectionRadius => _detectionRadius;
     public float RandomMoveInterval => _randomMoveInterval;
+    public float RotationAttackInterval => _rotationAttackInterval;
+    public float RechargeInterval => _rechargeInterval;
 
     private GameObject _player;
     private EnemyState _currentState;
@@ -54,6 +62,7 @@ public class Enemy : MonoBehaviour
 
         if (NavMesh.SamplePosition(randomDirection, out NavMeshHit navHit, _detectionRadius, NavMesh.AllAreas))
         {
+            Debug.Log("Random movement");
             Agent.SetDestination(navHit.position);
             Agent.speed = _normalMoveSpeed;
         }
@@ -73,19 +82,27 @@ public class Enemy : MonoBehaviour
             LookAtPlayer(_player.transform.position);
         }
     }
+    
+    public void Rotate()
+    {
+        transform.Rotate(0, 0, _rotationSpeed * Time.deltaTime);
+    }
+    
+    public void RotateAttack()
+    {
+        Rotate();
+
+        if (_player != null)
+        {
+            Vector3 directionToPlayer = (_player.transform.position - transform.position).normalized;
+            Agent.Move(directionToPlayer * (_chaseSpeed * Time.deltaTime));
+        }
+    }
+    
     private void LookAtPlayer(Vector3 playerPosition)
     {
         Vector3 direction = (playerPosition - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction); // Only rotate around the Z-axis
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _chaseSpeed); // Smooth rotation
-    }
-    private void AimAndShoot()
-    {
-        // TODO
-    }
-
-    private void Shoot()
-    {
-        // TODO
     }
 }
