@@ -1,104 +1,87 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] 
-    private float _chaseSpeed = 3f;
+    [SerializeField] private float _chaseSpeed = 3f;
+    [SerializeField] private float _normalMoveSpeed = 1.5f;
+    [SerializeField] private float _detectionRadius = 3f;
+    [SerializeField] private float _randomMoveInterval = 2f;
 
-    [SerializeField] 
-    private float _normalMoveSpeed = 1.5f;
-
-    [SerializeField] 
-    private float _detectionRadius = 3f;
-
-    [SerializeField] 
-    private float _randomMoveInterval = 2f;
-
-    private Rigidbody _rb;
-    private CircleCollider2D _collider;
+    public NavMeshAgent Agent { get; private set; }
+    public float DetectionRadius => _detectionRadius;
+    public float RandomMoveInterval => _randomMoveInterval;
 
     private GameObject _player;
-    private Vector3 _randomDirection;
-    private float _randomMoveTimer;
+    private EnemyState _currentState;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
-        _collider = GetComponent<CircleCollider2D>();
+        Agent = GetComponent<NavMeshAgent>();
+        Agent.updateRotation = false;
+        Agent.updateUpAxis = false;
     }
 
     private void Start()
     {
         _player = FindAnyObjectByType<Player>().gameObject;
-        _randomMoveTimer = _randomMoveInterval;
-        PickRandomDirection();
+        SetState(new IdleState(this));
     }
 
     private void Update()
     {
-        if (_player == null) return;
+        _currentState?.Update();
+    }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, _player.transform.position);
+    public void SetState(EnemyState newState)
+    {
+        _currentState?.Exit();
+        _currentState = newState;
+        _currentState.Enter();
+    }
 
-        if (distanceToPlayer <= _detectionRadius)
+    public bool PlayerInDetectionRadius()
+    {
+        if (_player == null) return false;
+        return Vector3.Distance(transform.position, _player.transform.position) <= _detectionRadius;
+    }
+
+    public void PickRandomDestination()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * _detectionRadius;
+        randomDirection += transform.position;
+
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit navHit, _detectionRadius, NavMesh.AllAreas))
         {
-            ChasePlayer();
-            _randomMoveTimer = 0;
+            Agent.SetDestination(navHit.position);
+            Agent.speed = _normalMoveSpeed;
         }
-        else
+    }
+
+    public bool ReachedDestination()
+    {
+        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
+    }
+
+    public void ChasePlayer()
+    {
+        if (_player != null)
         {
-            RandomMovement();
+            Agent.SetDestination(_player.transform.position);
+            Agent.speed = _chaseSpeed;
+            LookAtPlayer(_player.transform.position);
         }
     }
-
-    private void ChasePlayer()
+    private void LookAtPlayer(Vector3 playerPosition)
     {
-        Vector2 directionToPlayer = (_player.transform.position - transform.position).normalized;
-        LookInDirection(directionToPlayer);
-        
-        Vector2 velocity = directionToPlayer * _chaseSpeed;
-        transform.position = GameUtils.ComputeEulerStep(transform.position, velocity, Time.deltaTime);
-    }
-
-    private void RandomMovement()
-    {
-        _randomMoveTimer -= Time.deltaTime;
-
-        if (_randomMoveTimer <= 0 || 
-            GameManager.Instance.EscapedLevel(
-                transform.position, new(_collider.radius, _collider.radius)))
-        {
-            PickRandomDirection();
-            
-            _randomMoveTimer = _randomMoveInterval;
-        }
-        
-        Vector3 velocity = _randomDirection * _normalMoveSpeed;
-        transform.position =  GameUtils.ComputeEulerStep(transform.position, velocity, Time.deltaTime);
-    }
-
-    private void PickRandomDirection()
-    {
-        float angle = Random.Range(0f, 360f);
-        _randomDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
-        LookInDirection(_randomDirection);
-    }
-    
-    private void LookInDirection(Vector2 direction)
-    {
-        transform.up = direction;
-    }
-    
-    // For debugging puproses
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
+        Vector3 direction = (playerPosition - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction); // Only rotate around the Z-axis
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _chaseSpeed); // Smooth rotation
     }
     private void AimAndShoot()
     {
-       // TODO
+        // TODO
     }
 
     private void Shoot()
