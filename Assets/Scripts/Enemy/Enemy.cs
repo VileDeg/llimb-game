@@ -10,11 +10,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _normalMoveSpeed = 1.5f;
     [SerializeField] private float _detectionRadius = 3f;
     [SerializeField] private float _randomMoveInterval = 2f;
-    // Attack 
-    private float _rotationSpeed = 500f;
+    // Attack - probably create scripts that inherit 90% only attack change
+    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private float _rotationSpeed = 500f;
     [SerializeField] private float _rotationAttackInterval = 5f;
     [SerializeField] private float _dashAttackInterval = 2f;
     [SerializeField] private float _rechargeInterval = 3f;
+    [SerializeField] private float _shootingInterval = 2f;
+    [SerializeField] private float _projectileSpeed = 100;
+    // TODO only for Type4
+    [SerializeField] private Transform _firePoint;
     
     public NavMeshAgent Agent { get; private set; }
     public EnemyType Type => type;
@@ -23,6 +28,10 @@ public class Enemy : MonoBehaviour
     public float RotationAttackInterval => _rotationAttackInterval;
     public float DashAttackInterval => _dashAttackInterval;
     public float RechargeInterval => _rechargeInterval;
+    public float ShootingInterval => _shootingInterval;
+    public GameObject ProjectilePrefab => _projectilePrefab;
+    public Transform FirePoint => _firePoint;
+    
     private GameObject _player;
     private EnemyState _currentState;
 
@@ -109,6 +118,19 @@ public class Enemy : MonoBehaviour
             Agent.Move(direction * (_dashSpeed * Time.deltaTime));
         }
     }
+
+    // TODO help the projectile does not move
+    public void ShootPlayer()
+    {
+        var bulletGO = Instantiate(
+            _projectilePrefab,
+            transform.position + (_firePoint.position - transform.position),
+            Quaternion.identity);
+
+        var projectile = bulletGO.GetComponent<AProjectile>();
+
+        projectile.SetVelocity(transform.forward * _projectileSpeed);
+    }
     
     public void LookInDirection(Vector3 direction)
     {
@@ -123,10 +145,14 @@ public class Enemy : MonoBehaviour
     }
 
     public void ChooseAttack()
-    {switch (type)
+    {
+        switch (type)
         {
             case(EnemyType.Type1): 
                 SetState(new DashState(this));
+                break;
+            case(EnemyType.Type2):
+                SetState(new ShootState(this));
                 break;
             case(EnemyType.Type3):
                 SetState(new RotationAttackState(this));
@@ -138,6 +164,5 @@ public class Enemy : MonoBehaviour
                 SetState(new ChaseState(this));
                 break;
         }
-        
     }
 }
