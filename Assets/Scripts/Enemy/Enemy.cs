@@ -124,12 +124,14 @@ public class Enemy : MonoBehaviour
     {
         var bulletGO = Instantiate(
             _projectilePrefab,
-            transform.position + (_firePoint.position - transform.position),
+            _firePoint.position,
             Quaternion.identity);
 
         var projectile = bulletGO.GetComponent<AProjectile>();
 
-        projectile.SetVelocity(transform.forward * _projectileSpeed);
+        var dir = (_firePoint.position - transform.position).normalized;
+
+        projectile.SetVelocity(dir * _projectileSpeed);
     }
     
     public void LookInDirection(Vector3 direction)

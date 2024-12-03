@@ -11,7 +11,7 @@ public abstract class AProjectile : MonoBehaviour
         _velocity = velocity;
     }
 
-    void Move()
+    protected virtual void Move()
     {
         transform.position =
             GameUtils.ComputeEulerStep(transform.position, _velocity, Time.deltaTime);
