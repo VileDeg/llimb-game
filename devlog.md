@@ -26,9 +26,16 @@
 * MP: Improve enemy AI, navigation, navmesh etc.
 
 ### Week 3 (3. 12 - 9. 12)
-* UI
-* Multiple levels, level design
-* Simple graphic update
+* MP: UI (heathbar + chargebar/cooldown for weapon)
+* MP: Simple menu (restart game,...)
+* KC: Design 1 bigger level for play testing
+* VG: Player - collision with terrain
+* VG: Player - 2nd weapon
+* VG: Player - change up 1st gun (charge up?)
+* VG: Enemey - explosion, make more entertaining, turn off gravity
+* KC: Enemy - refactor Enemy script into behaviour for everyone + unique attacks
+* KC: Enemy - enhance attacks (Type 2 - going after player while shooting) (others - after ramming into player demage)
+* KC: New enemy type - Machine gun (stands and shoots more/line/...)
 
 ### Week 4 (10. 12. - 16. 12)
 * Polishing, play testing
