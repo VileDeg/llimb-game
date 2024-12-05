@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3901639181913637404}
   - component: {fileID: 771195015988623806}
   - component: {fileID: 7598974713988968877}
-  - component: {fileID: 5797567618695826161}
   - component: {fileID: 562877293918012711}
   m_Layer: 7
   m_Name: Enemy
@@ -100,32 +99,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5797567618695826161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6425110757564263698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c2c381ab5475424ea036b7fbb59a4cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  _chaseSpeed: 3
-  _dashSpeed: 10
-  _normalMoveSpeed: 1.5
-  _detectionRadius: 5
-  _randomMoveInterval: 2
-  _projectilePrefab: {fileID: 1875691617403932040, guid: aea9650fe3530fa4a93fa7af476a19f5, type: 3}
-  _rotationSpeed: 500
-  _rotationAttackInterval: 5
-  _dashAttackInterval: 2
-  _rechargeInterval: 3
-  _shootingInterval: 4
-  _projectileSpeed: 50
-  _firePoint: {fileID: 0}
 --- !u!114 &562877293918012711
 MonoBehaviour:
   m_ObjectHideFlags: 0
