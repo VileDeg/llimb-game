@@ -1,39 +1,22 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyType type;
-    [SerializeField] private float _chaseSpeed = 3f;
-    [SerializeField] private float _dashSpeed = 10f;
     [SerializeField] private float _normalMoveSpeed = 1.5f;
-    [SerializeField] private float _detectionRadius = 3f;
+    [SerializeField] private float _chaseSpeed = 3f;
+    [SerializeField] private float _detectionRadius = 5f;
     [SerializeField] private float _randomMoveInterval = 2f;
-    // Attack - probably create scripts that inherit 90% only attack change
-    [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private float _rotationSpeed = 500f;
-    [SerializeField] private float _rotationAttackInterval = 5f;
-    [SerializeField] private float _dashAttackInterval = 2f;
     [SerializeField] private float _rechargeInterval = 3f;
-    [SerializeField] private float _shootingInterval = 4f;
-    [SerializeField] private float _projectileSpeed = 50;
-    // TODO only for Type4
-    [SerializeField] private Transform _firePoint;
     
     public NavMeshAgent Agent { get; private set; }
-    public EnemyType Type => type;
+    public float ChaseSpeed => _chaseSpeed;
     public float DetectionRadius => _detectionRadius;
     public float RandomMoveInterval => _randomMoveInterval;
-    public float RotationAttackInterval => _rotationAttackInterval;
-    public float DashAttackInterval => _dashAttackInterval;
     public float RechargeInterval => _rechargeInterval;
-    public float ShootingInterval => _shootingInterval;
-    public GameObject ProjectilePrefab => _projectilePrefab;
-    public Transform FirePoint => _firePoint;
     
-    private GameObject _player;
-    private EnemyState _currentState;
+    protected GameObject _player;
+    protected EnemyState _currentState;
 
     private void Awake()
     {
@@ -79,12 +62,7 @@ public class Enemy : MonoBehaviour
 
         return randomDirection;
     }
-
-    public bool ReachedDestination()
-    {
-        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
-    }
-
+    
     public void ChasePlayer()
     {
         if (_player != null)
@@ -94,45 +72,10 @@ public class Enemy : MonoBehaviour
             LookInDirection(GetPlayerDirection());
         }
     }
-    
-    public void Rotate()
+
+    public bool ReachedDestination()
     {
-        transform.Rotate(0, 0, _rotationSpeed * Time.deltaTime);
-    }
-    
-    public void RotateAttack()
-    {
-        Rotate();
-
-        if (_player != null)
-        {
-            Agent.Move(GetPlayerDirection() * (_chaseSpeed * Time.deltaTime));
-        }
-    }
-
-    public void Dash(Vector3 direction)
-    {        
-        if (_player != null)
-        {
-            // Move in straight line
-            Agent.Move(direction * (_dashSpeed * Time.deltaTime));
-        }
-    }
-
-    public void ShootPlayer()
-    {
-        LookInDirection(GetPlayerDirection());
-
-        var bulletGO = Instantiate(
-            _projectilePrefab,
-            _firePoint.position,
-            Quaternion.identity);
-
-        var projectile = bulletGO.GetComponent<AProjectile>();
-
-        var dir = (_firePoint.position - transform.position).normalized;
-
-        projectile.SetVelocity(dir * _projectileSpeed);
+        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
     }
     
     public void LookInDirection(Vector3 direction)
@@ -147,25 +90,5 @@ public class Enemy : MonoBehaviour
         return (_player.transform.position - transform.position);
     }
 
-    public void ChooseAttack()
-    {
-        switch (type)
-        {
-            case(EnemyType.Type1): 
-                SetState(new DashState(this));
-                break;
-            case(EnemyType.Type2):
-                SetState(new ChaseShootState(this));
-                break;
-            case(EnemyType.Type3):
-                SetState(new RotationAttackState(this));
-                break;
-            case (EnemyType.Type4):
-                SetState(new ChaseState(this));
-                break;
-            default:
-                SetState(new ChaseState(this));
-                break;
-        }
-    }
+    public virtual void ChooseAttack() {}
 }

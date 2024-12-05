@@ -1119,7 +1119,7 @@ Transform:
   m_GameObject: {fileID: 8552559238068796775}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.797, z: 0}
+  m_LocalPosition: {x: 0, y: 0.484, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1189,7 +1189,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Type 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5797567618695826161, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3901639181913637404, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
@@ -1221,6 +1222,9 @@ PrefabInstance:
       addedObject: {fileID: 3250734374609629057}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 3196074267568021259}
+    - targetCorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7638785015650791312}
   m_SourcePrefab: {fileID: 100100000, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
@@ -1239,6 +1243,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
   m_PrefabInstance: {fileID: 1278675188816561916}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3196074267568021259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5229893569508862958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6344a48308f24b75b1048dfe2036def7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  _normalMoveSpeed: 1.5
+  _chaseSpeed: 3
+  _detectionRadius: 3
+  _randomMoveInterval: 2
+  _rechargeInterval: 3
+  _projectilePrefab: {fileID: 1875691617403932040, guid: aea9650fe3530fa4a93fa7af476a19f5, type: 3}
+  _shootingInterval: 4
+  _projectileSpeed: 25
+  _firePoint: {fileID: 3506651524101604833}
 --- !u!195 &7638785015650791312
 NavMeshAgent:
   m_ObjectHideFlags: 0

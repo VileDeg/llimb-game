@@ -2,15 +2,21 @@
 
 public class ChaseShootState : EnemyState
 {
+    private EnemyType2 _enemyType2;
+    
     private float _timer; 
 
     private float _shootTimer = 0.0f;
     private float _shootInterval = 0.5f;
-    public ChaseShootState(Enemy enemy) : base(enemy) { }
+
+    public ChaseShootState(EnemyType2 enemy) : base(enemy)
+    {
+        _enemyType2 = enemy;
+    }
 
     public override void Enter()
     {
-        _timer = _enemy.ShootingInterval;
+        _timer = _enemyType2.ShootingInterval;
     }
 
     public override void Update()
@@ -21,15 +27,15 @@ public class ChaseShootState : EnemyState
 
         if (_timer <= 0)
         {
-            _enemy.SetState(new RechargeState(_enemy));
+            _enemyType2.SetState(new RechargeState(_enemyType2));
         }
         else
         {
-            _enemy.ChasePlayer();
+            _enemyType2.ChasePlayer();
             if (_shootTimer <= 0)
             {
                 _shootTimer = _shootInterval;
-                _enemy.ShootPlayer();
+                _enemyType2.ShootPlayer();
             }
         }
     }

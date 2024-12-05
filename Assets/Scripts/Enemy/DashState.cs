@@ -2,16 +2,22 @@
 
 public class DashState : EnemyState
 {
-    private float _timer;
-    private Vector3 _dashDirection;
+    private EnemyType1 _enemyType1;
     
-    public DashState(Enemy enemy) : base(enemy) { }
+    private float _timer;
+    
+    private Vector3 _dashDirection;
+
+    public DashState(EnemyType1 enemy) : base(enemy)
+    {
+        _enemyType1 = enemy;
+    }
 
     public override void Enter()
     {
-        _timer = _enemy.DashAttackInterval;
+        _timer = _enemyType1.DashAttackInterval;
         
-        _dashDirection = _enemy.GetPlayerDirection().normalized;
+        _dashDirection = _enemyType1.GetPlayerDirection().normalized;
     }
 
     public override void Update()
@@ -20,12 +26,12 @@ public class DashState : EnemyState
         
         if (_timer <= 0) // Rotate if have fuel
         {
-            _enemy.SetState(new RechargeState(_enemy));
+            _enemyType1.SetState(new RechargeState(_enemyType1));
         }
         else
         {
-            _enemy.LookInDirection(_dashDirection);
-            _enemy.Dash(_dashDirection);
+            _enemyType1.LookInDirection(_dashDirection);
+            _enemyType1.Dash(_dashDirection);
         }
     }
 

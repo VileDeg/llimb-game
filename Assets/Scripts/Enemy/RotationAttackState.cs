@@ -2,13 +2,17 @@
 
 public class RotationAttackState : EnemyState
 {
+    private EnemyType3 _enemyType3;
     private float _timer;
 
-    public RotationAttackState(Enemy enemy) : base(enemy) { }
+    public RotationAttackState(EnemyType3 enemy) : base(enemy)
+    {
+        _enemyType3 = enemy;
+    }
 
     public override void Enter()
     {
-        _timer = _enemy.RotationAttackInterval;
+        _timer = _enemyType3.RotationAttackInterval;
     }
 
     public override void Update()
@@ -17,27 +21,26 @@ public class RotationAttackState : EnemyState
 
         if (_timer <= 0) // Rotate if have fuel
         {
-            _enemy.SetState(new RechargeState(_enemy));
+            _enemyType3.SetState(new RechargeState(_enemyType3));
         }
         else
         {
-            if (_enemy.PlayerInDetectionRadius())
+            if (_enemyType3.PlayerInDetectionRadius())
             {
-                _enemy.Agent.isStopped = false;
-                _enemy.RotateAttack();
+                _enemyType3.Agent.isStopped = false;
+                _enemyType3.RotateAttack();
             }
             else
             {
                 // Enemy stops if it doesnt see the player
-                _enemy.Agent.isStopped =  true;
-                _enemy.Rotate();
+                _enemyType3.Agent.isStopped =  true;
+                _enemyType3.Rotate();
             }
         }
     }
 
     public override void Exit()
     {
-        _enemy.Agent.isStopped = false;
-        // Optional: Cleanup idle-specific actions
+        _enemyType3.Agent.isStopped = false;
     }
 }
