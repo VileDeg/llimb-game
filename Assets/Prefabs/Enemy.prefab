@@ -123,8 +123,9 @@ MonoBehaviour:
   _rotationAttackInterval: 5
   _dashAttackInterval: 2
   _rechargeInterval: 3
-  _shootingInterval: 2
-  _projectileSpeed: 100
+  _shootingInterval: 4
+  _projectileSpeed: 50
+  _firePoint: {fileID: 0}
 --- !u!114 &562877293918012711
 MonoBehaviour:
   m_ObjectHideFlags: 0

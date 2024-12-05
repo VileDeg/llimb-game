@@ -16,8 +16,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _rotationAttackInterval = 5f;
     [SerializeField] private float _dashAttackInterval = 2f;
     [SerializeField] private float _rechargeInterval = 3f;
-    [SerializeField] private float _shootingInterval = 2f;
-    [SerializeField] private float _projectileSpeed = 100;
+    [SerializeField] private float _shootingInterval = 4f;
+    [SerializeField] private float _projectileSpeed = 50;
     // TODO only for Type4
     [SerializeField] private Transform _firePoint;
     
@@ -119,9 +119,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // TODO help the projectile does not move
     public void ShootPlayer()
     {
+        LookInDirection(GetPlayerDirection());
+
         var bulletGO = Instantiate(
             _projectilePrefab,
             _firePoint.position,
@@ -154,7 +155,7 @@ public class Enemy : MonoBehaviour
                 SetState(new DashState(this));
                 break;
             case(EnemyType.Type2):
-                SetState(new ShootState(this));
+                SetState(new ChaseShootState(this));
                 break;
             case(EnemyType.Type3):
                 SetState(new RotationAttackState(this));

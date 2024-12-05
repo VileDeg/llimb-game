@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 
-public class ShootState : EnemyState
+public class ChaseShootState : EnemyState
 {
-    private float _timer; // TODO maybe change to set ammo?
-
+    private float _timer; 
 
     private float _shootTimer = 0.0f;
     private float _shootInterval = 0.5f;
-    public ShootState(Enemy enemy) : base(enemy) { }
+    public ChaseShootState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -26,13 +25,12 @@ public class ShootState : EnemyState
         }
         else
         {
+            _enemy.ChasePlayer();
             if (_shootTimer <= 0)
             {
                 _shootTimer = _shootInterval;
-                //TODO just stand and shoot or run after player and shoot?
                 _enemy.ShootPlayer();
             }
-            //_enemy.ChasePlayer();
         }
     }
 
