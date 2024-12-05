@@ -1184,6 +1184,9 @@ PrefabInstance:
       addedObject: {fileID: 4458819785024128087}
     - targetCorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 6885401782607100697}
+    - targetCorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 4008966636245287525}
   m_SourcePrefab: {fileID: 100100000, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
 --- !u!4 &41495355569287704 stripped
@@ -1208,7 +1211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc530c616ce74cb1834e25431498a121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   _normalMoveSpeed: 1.5
   _chaseSpeed: 3
   _detectionRadius: 3
@@ -1216,6 +1218,19 @@ MonoBehaviour:
   _rechargeInterval: 3
   _dashSpeed: 10
   _dashAttackInterval: 2
+--- !u!114 &6885401782607100697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2511496545778899767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 5
 --- !u!195 &4008966636245287525
 NavMeshAgent:
   m_ObjectHideFlags: 0
