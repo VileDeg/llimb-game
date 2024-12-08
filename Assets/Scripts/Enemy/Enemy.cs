@@ -1,20 +1,22 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _chaseSpeed = 3f;
     [SerializeField] private float _normalMoveSpeed = 1.5f;
-    [SerializeField] private float _detectionRadius = 3f;
+    [SerializeField] private float _chaseSpeed = 3f;
+    [SerializeField] private float _detectionRadius = 5f;
     [SerializeField] private float _randomMoveInterval = 2f;
-
+    [SerializeField] private float _rechargeInterval = 3f;
+    
     public NavMeshAgent Agent { get; private set; }
+    public float ChaseSpeed => _chaseSpeed;
     public float DetectionRadius => _detectionRadius;
     public float RandomMoveInterval => _randomMoveInterval;
-
-    private GameObject _player;
-    private EnemyState _currentState;
+    public float RechargeInterval => _rechargeInterval;
+    
+    protected GameObject _player;
+    protected EnemyState _currentState;
 
     private void Awake()
     {
@@ -47,7 +49,7 @@ public class Enemy : MonoBehaviour
         return Vector3.Distance(transform.position, _player.transform.position) <= _detectionRadius;
     }
 
-    public void PickRandomDestination()
+    public Vector3 PickRandomDestination()
     {
         Vector3 randomDirection = Random.insideUnitSphere * _detectionRadius;
         randomDirection += transform.position;
@@ -57,35 +59,36 @@ public class Enemy : MonoBehaviour
             Agent.SetDestination(navHit.position);
             Agent.speed = _normalMoveSpeed;
         }
-    }
 
-    public bool ReachedDestination()
-    {
-        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
+        return randomDirection;
     }
-
+    
     public void ChasePlayer()
     {
         if (_player != null)
         {
             Agent.SetDestination(_player.transform.position);
             Agent.speed = _chaseSpeed;
-            LookAtPlayer(_player.transform.position);
+            LookInDirection(GetPlayerDirection());
         }
     }
-    private void LookAtPlayer(Vector3 playerPosition)
+
+    public bool ReachedDestination()
     {
-        Vector3 direction = (playerPosition - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction); // Only rotate around the Z-axis
+        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
+    }
+    
+    public void LookInDirection(Vector3 direction)
+    {
+        direction.Normalize();
+        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction);  // Only rotate around the Z-axis
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _chaseSpeed); // Smooth rotation
     }
-    private void AimAndShoot()
+
+    public Vector3 GetPlayerDirection()
     {
-        // TODO
+        return (_player.transform.position - transform.position);
     }
 
-    private void Shoot()
-    {
-        // TODO
-    }
+    public virtual void ChooseAttack() {}
 }

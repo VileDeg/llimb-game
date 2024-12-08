@@ -50,3 +50,7 @@
 	- 2 hours
 * KC = Created 4 basic prefabs for enemies + simple EnemyController, that makes the enemy walk in random directions until they spot a player in which case they chase him, until he is too far.
 	- 1:45 hours
+
+### Week 2
+* KC = implemented attacks/combat mechanics of 4 different types of enemies (dash, shooting, chasing, chainsaw rotation).
+	- 4,5 hours

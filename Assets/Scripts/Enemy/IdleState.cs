@@ -13,7 +13,7 @@ public class IdleState : EnemyState
     {
         if (_enemy.PlayerInDetectionRadius())
         {
-            _enemy.SetState(new ChaseState(_enemy));
+            _enemy.ChooseAttack();
         }
         else
         {
