@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunShooting : AShooting
 {
-    public override void Attack(Vector3 firePointOffset, Vector3 direction)
+    public override void Attack(Vector3 direction, Vector3 firePointOffset, float charge)
     {
         var bulletGO = Instantiate(
             _projectilePrefab,
@@ -15,5 +15,11 @@ public class GunShooting : AShooting
         Debug.Assert(projectile != null);
 
         projectile.SetVelocity(direction * _projectileSpeed);
+        projectile.SetScaleByFactor(charge);
+
+        var destr = bulletGO.GetComponent<ADestructor>();
+        Debug.Assert(destr != null);
+
+        destr.SetDamageByFactor(charge);
     }
 }

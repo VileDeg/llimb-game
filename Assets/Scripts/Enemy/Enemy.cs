@@ -18,8 +18,12 @@ public class Enemy : MonoBehaviour
     protected GameObject _player;
     protected EnemyState _currentState;
 
+    protected Rigidbody2D _rb;
+
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody2D>();
+
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;

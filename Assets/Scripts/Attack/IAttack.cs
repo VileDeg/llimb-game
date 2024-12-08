@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAttack
 {
-    public void Attack(Vector3 attackPointOffset, Vector3 direction);
+    public void Attack(Vector3 direction, Vector3 attackPointOffset, float charge);
 }

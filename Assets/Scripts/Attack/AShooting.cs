@@ -10,5 +10,5 @@ public abstract class AShooting : MonoBehaviour, IAttack
     [SerializeField]
     public float _projectileSpeed;
 
-    public abstract void Attack(Vector3 attackPointOffset, Vector3 direction);
+    public abstract void Attack(Vector3 direction, Vector3 attackPointOffset, float charge);
 }

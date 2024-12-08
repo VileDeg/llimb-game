@@ -1189,9 +1189,6 @@ PrefabInstance:
       addedObject: {fileID: 9179205801437868609}
     - targetCorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2783151001510471433}
-    - targetCorrespondingSourceObject: {fileID: 6425110757564263698, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5447978229682705331}
   m_SourcePrefab: {fileID: 100100000, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
 --- !u!1 &436007660828996954 stripped
@@ -1216,19 +1213,6 @@ MonoBehaviour:
   _detectionRadius: 3
   _randomMoveInterval: 2
   _rechargeInterval: 3
---- !u!114 &2783151001510471433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436007660828996954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 5
 --- !u!195 &5447978229682705331
 NavMeshAgent:
   m_ObjectHideFlags: 0

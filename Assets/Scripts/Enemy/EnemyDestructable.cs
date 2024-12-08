@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Android.Gradle;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -20,11 +21,13 @@ public class EnemyDestructable : ADestructable
             LogUtil.Info($"{GetType().Name}: took damage {allyD.GetDamage()}");
 
             SpawnRedCircle(collision.contacts[0].point);
-        }
 
-        //foreach (ContactPoint2D contact in collision.contacts) {
-        //    Debug.DrawRay(contact.point, contact.normal, Color.red);
-        //}
+            var pad = collision.gameObject.GetComponent<ProjectileAllyDestructor>();
+            if (pad != null) {
+                // Dest proj when it does dmg
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     protected override void Die()

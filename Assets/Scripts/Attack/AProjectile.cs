@@ -6,23 +6,55 @@ public abstract class AProjectile : MonoBehaviour
 {
     private Vector2 _velocity;
 
+    private Rigidbody2D _rb;
+
+    // A scale for scale :)
+    private float _baseScale = 1f;
+
+    [SerializeField]
+    private float _maxScale = 2f;
+
     public void SetVelocity(Vector2 velocity)
     {
         _velocity = velocity;
     }
 
+    void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        transform.localScale *= _baseScale;
+    }
+
+    void FixedUpdate()
+    {
+        Move();
+    }
+
+    public void SetScaleByFactor(float factor)
+    {
+        Debug.Assert(factor <= 1.01f);
+        transform.localScale *=
+            ( _baseScale * (1f - factor) + _maxScale * factor );
+    }
+
     protected virtual void Move()
     {
-        transform.position =
-            GameUtils.ComputeEulerStep(transform.position, _velocity, Time.deltaTime);
+        _rb.MovePosition(
+            GameUtils.ComputeEulerStep(_rb.position, _velocity, Time.fixedDeltaTime));
 
-        if (GameManager.Instance.EscapedLevel(transform.position, new(1, 1))) {
+        if (GameManager.Instance.EscapedLevel(_rb.position, new(1, 1))) {
             Destroy(this.gameObject);
         }
     }
 
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Move();
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle")) {
+            Destroy(this.gameObject);
+        }
     }
 }

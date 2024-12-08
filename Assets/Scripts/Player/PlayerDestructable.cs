@@ -12,6 +12,12 @@ public class PlayerDestructable : ADestructable
             TakeDamage(hostileD.GetDamage());
             LogUtil.Info($"{GetType().Name}: took damage {hostileD.GetDamage()}");
             SpawnBlueCircle(collision.contacts[0].point);
+
+            var phd = collision.gameObject.GetComponent<ProjectileHostileDestructor>();
+            if (phd != null) {
+                // Dest proj when it does dmg
+                Destroy(collision.gameObject);
+            }
         }
     }
 }
