@@ -38,6 +38,19 @@
 * KC: New enemy type - Machine gun (stands and shoots more/line/...)
 
 ### Week 4 (10. 12. - 16. 12)
+* MP: Enemy field of view
+* MP: Enemy remove obstacle see-through
+* MP: Enemy notice they are damaged
+* MP: Enemy keeps aggro
+* VG: Increase cooldown time (add minimal cooldown)
+* VG: Add melee weapon
+* VG: Increase enemy detection range when player shoots
+* VG: Enemies respect collision with player (don't fully overlap)
+* MP: Enemy does continuous damage when inside player
+* VG: (Optional) Make enemy attack collider in front of enemy instead of in center
+* VG: Balance limbs fly speed and damage (and randomness)
+* KC: Make level bigger, make camera follow player
+* KC: balance enemies, and their unique abilities
 * Polishing, play testing
 
 ---
@@ -51,7 +64,7 @@
 * KC = Created 4 basic prefabs for enemies + simple EnemyController, that makes the enemy walk in random directions until they spot a player in which case they chase him, until he is too far.
 	- 1:45 hours
 * MP = Created Navmesh, Added obstacles into test level, set up state machine for enemy behaviour
-	- 40 mins	
+	- 40 mins
 
 ### Week 2
 * KC = implemented attacks/combat mechanics of 4 different types of enemies (dash, shooting, chasing, chainsaw rotation).
