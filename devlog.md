@@ -28,7 +28,7 @@
 ### Week 3 (3. 12 - 9. 12)
 * MP: UI (heathbar + chargebar/cooldown for weapon)
 * MP: Simple menu (restart game,...)
-* KC: Design 1 bigger level for play testing
+* KC->MP: Design 1 bigger level for play testing
 * VG: Player - collision with terrain
 * VG: Player - 2nd weapon
 * VG: Player - change up 1st gun (charge up?)
@@ -50,7 +50,11 @@
 	- 2 hours
 * KC = Created 4 basic prefabs for enemies + simple EnemyController, that makes the enemy walk in random directions until they spot a player in which case they chase him, until he is too far.
 	- 1:45 hours
+* MP = Created Navmesh, Added obstacles into test level, set up state machine for enemy behaviour
+	- 40 mins	
 
 ### Week 2
 * KC = implemented attacks/combat mechanics of 4 different types of enemies (dash, shooting, chasing, chainsaw rotation).
 	- 4,5 hours
+* MP = UI - Created and linked Health and Charge Bar, slightly improved gun charging, You Died and Main Menu screens with necessary buttons, player death. Made test level slightly larger, more obstacles and enemies. (R and Esc buttons dont work)
+	- 3,5 hours
