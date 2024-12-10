@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 102900000, guid: 7fdccf07414653040be365615bc1236b, type: 3}
     - target: {fileID: 4403428301498089044, guid: c6de6cf97467ab541989f28a8169cac6, type: 3}
       propertyPath: _levelDimensions.x
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4403428301498089044, guid: c6de6cf97467ab541989f28a8169cac6, type: 3}
       propertyPath: _levelDimensions.y
