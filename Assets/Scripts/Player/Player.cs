@@ -29,21 +29,26 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _cooldownRate = 50f;
 
+    [SerializeField]
+    private ChargeBar chargeBar;
+
     private float _timingFactor = 0.1f;
 
     // Must always be 1!
     private const float _chargeMax = 1f;
-
+    private const float _minCooldown = 0.1f; // Minimum cooldown duration
     private const float _cooldownMax = 1f;
+    private float _reachedCharge = 0f;
     //private float _charge = 0f;
 
     private float _readonly_charge = 0f;
+
+    private float _scaledCooldownMax = 0f; // Cooldown time scaled by charge
     private float _Charge
     {
         get => _readonly_charge;
         set {
             _readonly_charge = value;
-            UpdateGunVisuals();
         }
     }
 
@@ -53,7 +58,6 @@ public class Player : MonoBehaviour
         get => _readonly_cooldown;
         set {
             _readonly_cooldown = value;
-            UpdateGunVisuals();
         }
     }
 
@@ -76,36 +80,49 @@ public class Player : MonoBehaviour
 
 
 
-    void Awake()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _attack = GetComponent<AShooting>();
-
         _gunSprite = _gunObject.GetComponent<SpriteRenderer>();
-
         _collisionMask = LayerMask.GetMask("Obstacle");
+
+        // Initialize the ChargeBar
+        if (chargeBar != null)
+        {
+            chargeBar.SetMaxCharge(_chargeMax); // Set max charge
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         LookAtCursor();
 
-        switch (_gunState) {
+        switch (_gunState)
+        {
             case GunState.Charge:
-                if (_Charge < _chargeMax) {
+                if (_Charge < _chargeMax)
+                {
                     _Charge += _chargeRate * _timingFactor * Time.deltaTime;
                 }
                 break;
             case GunState.Cooldown:
-                _Cooldown += _cooldownRate * _timingFactor * Time.deltaTime;
-                if (_Cooldown >= _cooldownMax) {
-                    _Cooldown = 0f;
-                    // Finish cooldown
-                    _gunState = GunState.None;
+                if (_scaledCooldownMax > 0f) // Only process cooldown if it was set
+                {
+                    _Cooldown += _cooldownRate * _timingFactor * Time.deltaTime;
+                    if (_Cooldown >= _scaledCooldownMax)
+                    {
+                        _Cooldown = 0f;
+                        _scaledCooldownMax = 0f; // Reset scaled cooldown
+                        _gunState = GunState.None;
+                    }
                 }
                 break;
         }
+
+        // Update visuals and ChargeBar
+        UpdateChargeBar();
     }
 
     private void FixedUpdate()
@@ -181,10 +198,16 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        _Charge = Mathf.Min(_Charge, 1f);
+        _Charge = Mathf.Clamp(_Charge, 0f, _chargeMax);
 
         Vector3 direction = (GetCursorPos() - transform.position).normalized;
         _attack.Attack(direction, _firePoint.position - transform.position, _Charge);
+
+        // Store the reached charge value for cooldown visualization
+        _reachedCharge = _Charge;
+
+        // Set cooldown duration proportional to charge with a minimum threshold
+        _scaledCooldownMax = Mathf.Max(_minCooldown, _cooldownMax * _Charge);
 
         _Charge = 0f;
     }
@@ -208,19 +231,38 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void UpdateGunVisuals()
-    {
-        float cp = _Charge / _chargeMax;
-        float cld = _Cooldown / _cooldownMax;
 
-        if (_gunState == GunState.Charge) {
-            _gunSprite.color = Color.Lerp(Color.white, Color.yellow, cp);
-        } else if (_gunState == GunState.Cooldown) {
-            _gunSprite.color = Color.Lerp(Color.white, Color.blue, cld);
-        } else if (_gunState == GunState.None) {
-            _gunSprite.color = Color.white;
+
+    private void UpdateChargeBar()
+    {
+        if (chargeBar == null) return;
+
+        switch (_gunState)
+        {
+            case GunState.Charge:
+                float chargeProgress = _Charge / _chargeMax;
+                chargeBar.SetCharge(chargeProgress); // Progress for charge
+                chargeBar.SetFillColor(Color.Lerp(Color.white, Color.yellow, chargeProgress)); // Yellow tint for charging
+                break;
+            case GunState.Cooldown:
+                if (_scaledCooldownMax > 0f)
+                {
+                    float cooldownProgress = _Cooldown / _scaledCooldownMax; // Use scaled cooldown
+                    chargeBar.SetCharge(_reachedCharge - cooldownProgress); // Use reached charge as the starting point
+                    chargeBar.SetFillColor(Color.Lerp(Color.white, Color.blue, cooldownProgress)); // Blue tint for cooldown
+                }
+                break;
+            case GunState.None:
+                chargeBar.SetCharge(0); // Reset to 0 when idle
+                chargeBar.SetFillColor(Color.white); // Default color when idle
+                break;
         }
     }
+
+
+
+
+
 
     void LookAtCursor()
     {
