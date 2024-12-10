@@ -85,9 +85,9 @@ public class GameManager : SingletonBase<GameManager>
 
     private void ProcessInput()
     {
-        switch (CurrentGameState)
-        {
-            case GameState.Playing:
+        //switch (CurrentGameState)
+        //{
+            //case GameState.Playing:
                 if (Input.GetKeyUp(KeyCode.R)) // Restart level
                 {
                     RestartCurrentLevel();
@@ -104,11 +104,11 @@ public class GameManager : SingletonBase<GameManager>
                 {
                     GoToMainMenu();
                 }
-                break;
+               // break;
 
-            case GameState.GameOver:
-                break;
-        }
+            //case GameState.GameOver:
+            //    break;
+        //}
     }
 
 
@@ -118,14 +118,17 @@ public class GameManager : SingletonBase<GameManager>
     {
         // Get the current level name and reload it
         string currentLevel = ListOfLevelNames[CurrentLevelIndex];
+        Debug.Log($"GameManager: Restarting current level: {currentLevel}");
         LoadScene(currentLevel);
     }
 
     public void GoToMainMenu()
     {
         // Load the main menu scene
+        Debug.Log("GameManager: Returning to main menu");
         LoadScene(MainMenuSceneName);
     }
+
 
     public void LoadYouDiedScene()
     {
