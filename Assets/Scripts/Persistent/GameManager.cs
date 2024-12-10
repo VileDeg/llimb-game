@@ -266,22 +266,14 @@ public class GameManager : SingletonBase<GameManager>
 
     private void OnTimeSpentInLevelOneSecondPassedHandler(float timeSpentInLevel)
     {
-        /*
-        _Credits += _creditsPerSecond;
+    }
 
-        if (timeSpentInLevel > _levelStaticData[_currentLevelIndex].SecondsToFinish) {
-            // Finish level
-            if (_currentLevelIndex != _listOfLevelNames.Length - 1) {
-                // If not last level
-                OnLevelWon?.Invoke();
-            } else {
-                // Destroy all enemies and meteorites
-                // Summon boss
-                OnSummonBoss?.Invoke();
-            }
-            // Load next level in OnLevelEndAnimationCompletedHandler
-        }
-        */
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 center = Vector3.zero;
+        Vector3 size = new Vector3(_levelDimensions.x, _levelDimensions.y, 0);
+        Gizmos.DrawWireCube(center, size);
     }
 }
 

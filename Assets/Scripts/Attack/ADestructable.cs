@@ -15,19 +15,25 @@ public abstract class ADestructable : MonoBehaviour
         set {
             _readonly_currentHealth = value;
             //HealthChanged?.Invoke(_readonly_currentHealth / _maxHealth);
+            UpdateSpriteColors();
             if (_currentHealth <= 0) {
                 Die();
             }
         }
     }
 
-    public event Action<float> HealthChanged;
+    //public event Action<float> HealthChanged;
 
     [SerializeField]
     private GameObject _contactCircle;
 
+    private List<SpriteRenderer> _spriteRenderers;
+
     protected virtual void Awake()
     {
+        _spriteRenderers = new List<SpriteRenderer>(
+            GetComponentsInChildren<SpriteRenderer>()
+            );
         _currentHealth = _maxHealth;
     }
 
@@ -81,9 +87,19 @@ public abstract class ADestructable : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         _currentHealth = Mathf.Max(0f, _currentHealth - damage);
+    }
+
+    private void UpdateSpriteColors()
+    {
+        float healthPercentage = _currentHealth / _maxHealth;
+        Color color = new(1f, healthPercentage, healthPercentage); // Red color based on health
+
+        foreach (var spriteRenderer in _spriteRenderers) {
+            spriteRenderer.color = color;
+        }
     }
 
     protected void SpawnCircle(Vector3 position, Color color)

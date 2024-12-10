@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 242460735792147026}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
-  m_LocalPosition: {x: 0.362, y: 0.622, z: 0}
+  m_LocalPosition: {x: 0.375, y: 0.6, z: 0}
   m_LocalScale: {x: 0.1, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 2337526463567013703}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.5, w: 0.8660254}
-  m_LocalPosition: {x: -0.375, y: 0.616, z: 0}
+  m_LocalPosition: {x: -0.375, y: 0.6, z: 0}
   m_LocalScale: {x: 0.1, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 1091022835175826579}
   - component: {fileID: 1312878211330645530}
   m_Layer: 6
-  m_Name: Square (4)
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,7 @@ Transform:
   m_GameObject: {fileID: 2417670673071354376}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -0.456, y: 0.275, z: 0}
+  m_LocalPosition: {x: -0.45, y: 0.275, z: 0}
   m_LocalScale: {x: 0.1, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -370,7 +370,7 @@ Transform:
   m_GameObject: {fileID: 3237457349782627333}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.38268322, w: 0.9238797}
-  m_LocalPosition: {x: 0.469, y: 0.292, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0.275, z: 0}
   m_LocalScale: {x: 0.1, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -729,7 +729,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 3400275837853434521}
+  _gunObject: {fileID: 2380404223394354359}
   _moveSpeed: 5
+  _chargeRate: 5
+  _cooldownRate: 10
+  _collisionOfsset: 0.05
 --- !u!114 &5280013916112778861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,3 +761,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 30
+  _contactCircle: {fileID: 7360845480949925923, guid: da766bf2e8a44ea41834dbde021843ab, type: 3}
