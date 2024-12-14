@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunShooting : AShooting
+public class PlayerGunShooting : AShooting
 {
     public override void Attack(Vector3 direction, Vector3 firePointOffset, float charge)
     {
@@ -11,15 +11,15 @@ public class GunShooting : AShooting
             transform.position + firePointOffset,
             Quaternion.identity);
 
-        var projectile = bulletGO.GetComponent<AProjectile>();
+        var projectile = bulletGO.GetComponent<PlayerGunProjectile>();
         Debug.Assert(projectile != null);
 
         projectile.SetVelocity(direction * _projectileSpeed);
         projectile.SetScaleByFactor(charge);
 
-        var destr = bulletGO.GetComponent<ADestructor>();
-        Debug.Assert(destr != null);
+        var playerProjD = bulletGO.GetComponent<PlayerProjectileDestructor>();
+        Debug.Assert(playerProjD != null);
 
-        destr.SetDamageByFactor(charge);
+        playerProjD.SetDamageByFactor(charge);
     }
 }

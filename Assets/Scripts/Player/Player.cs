@@ -21,8 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _gunObject;
 
-    [SerializeField]
-    private AllyDestructor _meleeDestructor;
+    //[SerializeField]
+    //private PlayerMeleeDestructor _meleeDestructor;
 
     [SerializeField] 
     private float _moveSpeed = 5f;
@@ -33,8 +33,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _cooldownRate = 50f;
 
-    [SerializeField]
-    private float _meleeDamage = 15f;
+    //[SerializeField]
+    //private float _meleeDamage = 15f;
 
     [SerializeField]
     private ChargeBar _chargeBar;
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
     private LayerMask _collisionMask;
     public float _collisionOfsset = 0.05f; // Small buffer to prevent sticking
 
-    private SpriteRenderer _gunSprite;
+    //private SpriteRenderer _gunSprite;
 
     private GunState _gunState = GunState.None;
     
@@ -88,14 +88,14 @@ public class Player : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _attack = GetComponent<AShooting>();
-        _gunSprite = _gunObject.GetComponent<SpriteRenderer>();
+        //_gunSprite = _gunObject.GetComponent<SpriteRenderer>();
         _collisionMask = LayerMask.GetMask("Obstacle");
 
-        if (_meleeDestructor != null) {
-            _meleeDestructor.SetDamage(_meleeDamage);
-        } else {
-            LogUtil.Warn("Player _meleeDestructor missing");
-        }
+        //if (_meleeDestructor != null) {
+        //    _meleeDestructor.SetDamage(_meleeDamage);
+        //} else {
+        //    LogUtil.Warn("Player _meleeDestructor missing");
+        //}
         
 
         // Initialize the ChargeBar
@@ -114,8 +114,7 @@ public class Player : MonoBehaviour
         switch (_gunState)
         {
             case GunState.Charge:
-                if (_Charge < _chargeMax)
-                {
+                if (_Charge < _chargeMax) {
                     _Charge += _chargeRate * _timingFactor * Time.deltaTime;
                 }
                 break;

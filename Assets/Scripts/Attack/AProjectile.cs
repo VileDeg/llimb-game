@@ -4,15 +4,14 @@ using UnityEngine;
 
 public abstract class AProjectile : MonoBehaviour
 {
-    private Vector2 _velocity;
+    protected Vector2 _velocity;
 
-    private Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
 
     // A scale for scale :)
-    private float _baseScale = 1f;
+    protected float _baseScale = 1f;
 
-    [SerializeField]
-    private float _maxScale = 2f;
+    protected LayerMask _collisionMask;
 
     public void SetVelocity(Vector2 velocity)
     {
@@ -22,6 +21,8 @@ public abstract class AProjectile : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        _collisionMask = GetCollisionMask();
     }
 
     private void Start()
@@ -34,13 +35,6 @@ public abstract class AProjectile : MonoBehaviour
         Move();
     }
 
-    public void SetScaleByFactor(float factor)
-    {
-        Debug.Assert(factor <= 1.01f);
-        transform.localScale *=
-            ( _baseScale * (1f - factor) + _maxScale * factor );
-    }
-
     protected virtual void Move()
     {
         _rb.MovePosition(
@@ -51,9 +45,13 @@ public abstract class AProjectile : MonoBehaviour
         //}
     }
 
+    protected abstract LayerMask GetCollisionMask();
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle")) {
+        if ((_collisionMask.value & (1 << collision.gameObject.layer)) != 0) {
+            LogUtil.Info("AProjectile OnCollisionEnter2D, mask pass");
+            //Destroy(this.gameObject, 0.01f);
             Destroy(this.gameObject);
         }
     }

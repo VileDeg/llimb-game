@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1851471656023503575}
   - component: {fileID: 3054424629538995838}
   - component: {fileID: 6550580356378689227}
-  - component: {fileID: 7545933719632308214}
+  - component: {fileID: 8428847546157079063}
   m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
@@ -178,7 +178,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &7545933719632308214
+--- !u!114 &8428847546157079063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3067890745369206686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 1178827823059896422}
   - component: {fileID: 1375023061465261579}
   - component: {fileID: 8964220178459397027}
-  - component: {fileID: 70422591860940472}
+  - component: {fileID: 3695462747904381590}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -447,7 +447,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &70422591860940472
+--- !u!114 &3695462747904381590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6320453970698978268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 5668553302331166042}
   - component: {fileID: 2252018765394507185}
   - component: {fileID: 8338821135921990960}
-  - component: {fileID: 3535894070420726857}
+  - component: {fileID: 7251434766301291132}
   m_Layer: 7
   m_Name: Hand L
   m_TagString: Untagged
@@ -639,7 +639,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &3535894070420726857
+--- !u!114 &7251434766301291132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6411365034346641448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 8655206156357534762}
   - component: {fileID: 7018821126343656158}
   - component: {fileID: 4385420100817810009}
-  - component: {fileID: 1907018897908696741}
+  - component: {fileID: 7587579261946924630}
   m_Layer: 7
   m_Name: Hand R
   m_TagString: Untagged
@@ -831,7 +831,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &1907018897908696741
+--- !u!114 &7587579261946924630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6800145362602500701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5

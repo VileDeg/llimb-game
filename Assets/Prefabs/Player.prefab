@@ -874,11 +874,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 3400275837853434521}
   _gunObject: {fileID: 2380404223394354359}
-  _meleeDestructor: {fileID: 6933263833465698845}
   _moveSpeed: 5
   _chargeRate: 5
   _cooldownRate: 10
-  _meleeDamage: 15
   _chargeBar: {fileID: 0}
   _collisionOfsset: 0.05
 --- !u!114 &5280013916112778861
@@ -934,7 +932,8 @@ GameObject:
   - component: {fileID: 7704654693246146844}
   - component: {fileID: 9021453441637271000}
   - component: {fileID: 6983587737992255741}
-  - component: {fileID: 6933263833465698845}
+  - component: {fileID: 2188173157452851007}
+  - component: {fileID: 7652245028203039496}
   m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
@@ -1067,7 +1066,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 8613120898444221586}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -1084,7 +1083,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6933263833465698845
+--- !u!114 &2188173157452851007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1093,8 +1092,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8613120898444221586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 220a526048ab29041a3c7a842d27c949, type: 3}
+  m_Script: {fileID: 11500000, guid: 54f79d639236b6a44a73637254c51046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 5
-  _maxDamage: 10
+  _baseDamage: 15
+--- !u!114 &7652245028203039496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613120898444221586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f03e46f8549b5546b06ddb5038a576a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

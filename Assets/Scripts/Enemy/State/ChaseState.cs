@@ -13,7 +13,7 @@ public class ChaseState : EnemyState
     {
         if (!_enemy.PlayerInDetectionRadius())
         {
-            _enemy.SetState(new RandomMoveState(_enemy));
+            //_enemy.SetState(new RandomMoveState(_enemy));
         }
         else
         {

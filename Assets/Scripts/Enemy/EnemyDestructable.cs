@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(Collider2D))]
 public class EnemyDestructable : ADestructable
@@ -32,6 +33,16 @@ public class EnemyDestructable : ADestructable
             _partsRoot.GetComponentsInChildren<Transform>(true)
                 .Where(t => t != _partsRoot.transform)
                 .ToArray();
+    }
+
+    protected override List<System.Type> GetHostileDestructors()
+    {
+        return new List<System.Type>
+        {
+            typeof(PlayerProjectileDestructor),
+            typeof(PlayerMeleeDestructor),
+            typeof(LimbDestructor)
+        };
     }
 
     protected override void Die()
@@ -68,31 +79,77 @@ public class EnemyDestructable : ADestructable
                 LogUtil.Warn("No RB in child limb");
             }
 
-            // Set damage
-            if (child.TryGetComponent<HostileDestructor>(out var hd)) {
+            // Set damage (TODO: move to Awake?)
+            if (child.TryGetComponent<LimbDestructor>(out var hd)) {
                 hd.SetDamage(_partsDamage);
             } else {
-                LogUtil.Warn("No HostileDestructor in child limb");
+                LogUtil.Warn("No LimbDestructor in child limb");
             }
 
             child.SetParent(null);
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        var allyD = collision.gameObject.GetComponent<AllyDestructor>();
-        if (allyD != null) {
-            TakeDamage(allyD.GetDamage());
-            LogUtil.Info($"{GetType().Name}: took damage {allyD.GetDamage()}");
+        var limbD = collision.gameObject.GetComponent<LimbDestructor>();
+        if (limbD) {
+            // Enemy's limb is ally to enemy
+            TakeDamage(limbD.GetDamage(), DamageSource.Ally);
+            LogUtil.Info($"{GetType().Name}: took damage {limbD.GetDamage()}");
 
             SpawnRedCircle(collision.contacts[0].point);
-
-            var pad = collision.gameObject.GetComponent<ProjectileAllyDestructor>();
-            if (pad != null) {
-                // Dest proj when it does dmg
-                Destroy(collision.gameObject);
-            }
         }
+
+        ResolveHostileCollision(
+            collision.gameObject,
+            hostileD => {
+                // Player is hostile to enemy
+                TakeDamage(hostileD.GetDamage(), DamageSource.Hostile);
+                LogUtil.Info($"{GetType().Name}: took damage {hostileD.GetDamage()}");
+
+                SpawnRedCircle(collision.contacts[0].point);
+            }
+        );
     }
+
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    var go = collision.gameObject;
+
+    //    var limbD = go.GetComponent<LimbDestructor>();
+    //    if (limbD) {
+    //        // Enemy's limb is ally to enemy
+    //        TakeDamage(limbD.GetDamage(), DamageSource.Ally);
+    //        LogUtil.Info($"{GetType().Name}: took damage {limbD.GetDamage()}");
+    //    }
+
+    //    ADestructor playerProjD = go.GetComponent<PlayerProjectileDestructor>();
+    //    ADestructor playerMeleeD = go.GetComponent<PlayerMeleeDestructor>();
+
+    //    if (playerProjD && playerMeleeD) {
+    //        // Shouldn't happen
+    //        LogUtil.Warn("Player projectile and melee hit in same OnCollisionEnter2D");
+    //    }
+
+    //    ADestructor playerD = playerProjD ? playerProjD : null;
+    //    playerD = playerMeleeD ? playerMeleeD : playerD;
+
+    //    if (playerD) {
+    //        // Player is hostile to enemy
+    //        TakeDamage(playerD.GetDamage(), DamageSource.Hostile);
+    //        LogUtil.Info($"{GetType().Name}: took damage {playerD.GetDamage()}");
+
+    //        SpawnRedCircle(collision.contacts[0].point);
+
+    //        if (playerProjD) {
+    //            // Dest proj when it does dmg
+    //            /* TODO: ugly hack, find better way.
+    //             * Problem is: if destroy in projectile script,
+    //             * enemy might not have time to register collision
+    //             */
+    //            //Destroy(go);
+    //        }
+    //    }
+    //}
 }
