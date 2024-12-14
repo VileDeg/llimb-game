@@ -1,11 +1,7 @@
-using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
-using Unity.Android.Gradle;
 using UnityEngine;
-using UnityEngine.Audio;
 
 [RequireComponent(typeof(Collider2D))]
 public class EnemyDestructable : ADestructable

@@ -89,9 +89,16 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _chaseSpeed); // Smooth rotation
     }
 
-    public Vector3 GetPlayerDirection()
+    public Vector2 GetPlayerDirection()
     {
-        return (_player.transform.position - transform.position);
+        if (_player == null) // Check if the player is null
+        {
+            Debug.LogWarning("Player reference is null. Cannot get direction.");
+            return Vector2.zero; // Return a default direction
+        }
+
+        Vector2 direction = (_player.transform.position - transform.position).normalized;
+        return direction;
     }
 
     public virtual void ChooseAttack() {}

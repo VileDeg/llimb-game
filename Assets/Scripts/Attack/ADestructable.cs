@@ -9,17 +9,33 @@ public abstract class ADestructable : MonoBehaviour
     private float _maxHealth = 5f;
 
     private float _readonly_currentHealth;
-    private float _currentHealth
+    protected float _currentHealth // Change this to protected
     {
         get => _readonly_currentHealth;
-        set {
+        set
+        {
             _readonly_currentHealth = value;
-            //HealthChanged?.Invoke(_readonly_currentHealth / _maxHealth);
             UpdateSpriteColors();
-            if (_currentHealth <= 0) {
+            if (_currentHealth <= 0)
+            {
                 Die();
             }
         }
+    }
+
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
+    }
+
+    protected void SetMaxHealth(float maxHealth)
+    {
+        _maxHealth = maxHealth;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _currentHealth = Mathf.Max(0f, _currentHealth - damage);
     }
 
     //public event Action<float> HealthChanged;
@@ -58,15 +74,6 @@ public abstract class ADestructable : MonoBehaviour
     //    return _damage;
     //}
 
-    public float GetMaxHealth()
-    {
-        return _maxHealth;
-    }
-
-    protected void SetMaxHealth(float maxHealth)
-    {
-        _maxHealth = maxHealth;
-    }
 
     //protected bool NoHealthLeft()
     //{
@@ -85,11 +92,6 @@ public abstract class ADestructable : MonoBehaviour
         //}
 
         Destroy(gameObject);
-    }
-
-    public void TakeDamage(float damage)
-    {
-        _currentHealth = Mathf.Max(0f, _currentHealth - damage);
     }
 
     private void UpdateSpriteColors()
