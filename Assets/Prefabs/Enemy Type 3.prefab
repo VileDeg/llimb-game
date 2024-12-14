@@ -194,7 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &1231703601175656491
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &3023071203584172144
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +672,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &3582164865171273818
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &6966317083541260649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,7 +1222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &8558182897846092887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,12 +1522,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _normalMoveSpeed: 1.5
-  _chaseSpeed: 3
+  _chaseSpeed: 4
   _detectionRadius: 3
   _randomMoveInterval: 2
   _rechargeInterval: 3
-  _rotationSpeed: 500
-  _rotationAttackInterval: 5
+  _rotationSpeed: 600
+  _rotationAttackInterval: 6
 --- !u!195 &6799885881635606395
 NavMeshAgent:
   m_ObjectHideFlags: 0

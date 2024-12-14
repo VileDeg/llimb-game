@@ -180,7 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &1671131516182354650
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &3832146746697972845
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &6667042500646903537
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &6987885910407737676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Type 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8312773915708007939, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
+      propertyPath: _baseDamage
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5797567618695826161, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
     m_RemovedGameObjects: []
@@ -1210,9 +1218,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalMoveSpeed: 1.5
   _chaseSpeed: 3
-  _detectionRadius: 3
+  _detectionRadius: 5
   _randomMoveInterval: 2
-  _rechargeInterval: 3
+  _rechargeInterval: 4
   _dashSpeed: 10
   _dashAttackInterval: 2
 --- !u!195 &4008966636245287525
