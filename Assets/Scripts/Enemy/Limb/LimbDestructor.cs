@@ -5,7 +5,7 @@ using UnityEngine;
 public class LimbDestructor : ADestructor
 {
     [SerializeField]
-    protected float _velocityDamageMultiplier = 0.1f;
+    protected float _velocityDamageMultiplier = 0.07f;
 
     protected Rigidbody2D _rb;
 
