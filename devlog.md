@@ -71,3 +71,11 @@
 	- 4,5 hours
 * MP = UI - Created and linked Health and Charge Bar, slightly improved gun charging, You Died and Main Menu screens with necessary buttons, player death. Made test level slightly larger, more obstacles and enemies. (R and Esc buttons dont work)
 	- 3,5 hours
+
+### Week 3
+* KC = refactored Enemy script into behavior for everyone + enhanced some attacks (Type 2 - going after player while shooting, shooting improvement + Type 1 - after ramming into player deals damage), added new enemy type - Machine gun (stands and shoots after the player when it detects him)
+	- 3 hours
+
+### Week 4
+* KC = made bigger map for testing with broader placement of enemies, used CinemachineCamera to follow player, adjusted some enemy abilities to make them more balanced
+	- 1:45 hours
