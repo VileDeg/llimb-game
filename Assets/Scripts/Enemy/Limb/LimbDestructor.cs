@@ -4,8 +4,23 @@ using UnityEngine;
 
 public class LimbDestructor : ADestructor
 {
-    public virtual float GetDamage()
+    [SerializeField]
+    protected float _velocityDamageMultiplier = 0.1f;
+
+    protected Rigidbody2D _rb;
+
+    protected override void Awake()
     {
-        return _damage;
+        base.Awake();
+
+        _rb = GetComponent<Rigidbody2D>();
+    }
+
+    public override float GetDamage()
+    {
+        // Calculate damage based on the current velocity
+        float damage = _damage * _rb.velocity.magnitude * _velocityDamageMultiplier;
+
+        return damage;
     }
 }

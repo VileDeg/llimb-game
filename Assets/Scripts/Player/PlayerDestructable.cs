@@ -8,7 +8,6 @@ public class PlayerDestructable : ADestructable
     [SerializeField]
     private HealthBar _healthBar;
 
-  
 
     protected override void Awake()
     {
@@ -18,39 +17,6 @@ public class PlayerDestructable : ADestructable
             _healthBar.SetMaxHealth((int)GetMaxHealth());
         }
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    var go = collision.gameObject;
-
-    //    var destructorTypes = new List<System.Type>
-    //    {
-    //        typeof(EnemyDestructor),
-    //        typeof(LimbDestructor),
-    //        typeof(EnemyProjectileDestructor)
-    //    };
-
-    //    ADestructor hostileD = null;
-    //    foreach (var type in destructorTypes) {
-    //        hostileD = go.GetComponent(type) as ADestructor;
-    //        if (hostileD != null) {
-    //            break;
-    //        }
-    //    }
-
-    //    if (hostileD)
-    //    {
-    //        // Enemy is hostile to player
-    //        TakeDamage(hostileD.GetDamage(), DamageSource.Hostile);
-    //        LogUtil.Info($"{GetType().Name}: took damage {hostileD.GetDamage()}");
-    //        SpawnBlueCircle(collision.contacts[0].point);
-
-    //        if (healthBar != null)
-    //        {
-    //            healthBar.SetHealth((int)_currentHealth);
-    //        }
-    //    }
-    //}
 
     protected override List<System.Type> GetHostileDestructors()
     {

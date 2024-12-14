@@ -10,7 +10,7 @@ public abstract class ADestructor : MonoBehaviour
 
     protected float _damage = 5f;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _damage = _baseDamage;
     }

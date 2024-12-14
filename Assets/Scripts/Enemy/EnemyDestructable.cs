@@ -112,44 +112,4 @@ public class EnemyDestructable : ADestructable
             }
         );
     }
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    var go = collision.gameObject;
-
-    //    var limbD = go.GetComponent<LimbDestructor>();
-    //    if (limbD) {
-    //        // Enemy's limb is ally to enemy
-    //        TakeDamage(limbD.GetDamage(), DamageSource.Ally);
-    //        LogUtil.Info($"{GetType().Name}: took damage {limbD.GetDamage()}");
-    //    }
-
-    //    ADestructor playerProjD = go.GetComponent<PlayerProjectileDestructor>();
-    //    ADestructor playerMeleeD = go.GetComponent<PlayerMeleeDestructor>();
-
-    //    if (playerProjD && playerMeleeD) {
-    //        // Shouldn't happen
-    //        LogUtil.Warn("Player projectile and melee hit in same OnCollisionEnter2D");
-    //    }
-
-    //    ADestructor playerD = playerProjD ? playerProjD : null;
-    //    playerD = playerMeleeD ? playerMeleeD : playerD;
-
-    //    if (playerD) {
-    //        // Player is hostile to enemy
-    //        TakeDamage(playerD.GetDamage(), DamageSource.Hostile);
-    //        LogUtil.Info($"{GetType().Name}: took damage {playerD.GetDamage()}");
-
-    //        SpawnRedCircle(collision.contacts[0].point);
-
-    //        if (playerProjD) {
-    //            // Dest proj when it does dmg
-    //            /* TODO: ugly hack, find better way.
-    //             * Problem is: if destroy in projectile script,
-    //             * enemy might not have time to register collision
-    //             */
-    //            //Destroy(go);
-    //        }
-    //    }
-    //}
 }
