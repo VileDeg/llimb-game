@@ -23,6 +23,11 @@ public abstract class ADestructor : MonoBehaviour
         return _damage;
     }
 
+    public void SetDamage(float damage)
+    {
+        _damage = damage;
+    }
+
     public void SetDamageByFactor(float factor)
     {
         _damage = _baseDamage * (1f - factor) + _maxDamage * factor;

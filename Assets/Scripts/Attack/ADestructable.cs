@@ -8,6 +8,9 @@ public abstract class ADestructable : MonoBehaviour
     [SerializeField]
     private float _maxHealth = 5f;
 
+    [SerializeField]
+    private GameObject _contactCircle;
+
     private float _readonly_currentHealth;
     protected float _currentHealth // Change this to protected
     {
@@ -22,6 +25,9 @@ public abstract class ADestructable : MonoBehaviour
             }
         }
     }
+    //public event Action<float> HealthChanged;
+    
+    private List<SpriteRenderer> _spriteRenderers;
 
     public float GetMaxHealth()
     {
@@ -38,12 +44,7 @@ public abstract class ADestructable : MonoBehaviour
         _currentHealth = Mathf.Max(0f, _currentHealth - damage);
     }
 
-    //public event Action<float> HealthChanged;
-
-    [SerializeField]
-    private GameObject _contactCircle;
-
-    private List<SpriteRenderer> _spriteRenderers;
+    
 
     protected virtual void Awake()
     {
@@ -106,9 +107,8 @@ public abstract class ADestructable : MonoBehaviour
 
     protected void SpawnCircle(Vector3 position, Color color)
     {
-        // Spawn a red circle at the specified position
+        // Spawn a circle at the specified position
         if (_contactCircle != null) {
-            //position.z = -10;
             var obj = Instantiate(_contactCircle, position, Quaternion.identity);
             if (obj.TryGetComponent<SpriteRenderer>(out var renderer)) {
                 renderer.color = color;

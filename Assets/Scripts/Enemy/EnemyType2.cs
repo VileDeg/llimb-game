@@ -15,7 +15,7 @@ public class EnemyType2 : Enemy
     {
         if (_player == null) // Check if the player is null
         {
-            Debug.LogWarning("Player reference is null. Cannot shoot.");
+            LogUtil.Warn("Player reference is null. Cannot shoot.");
             return; // Exit early if there's no player to shoot at
         }
         LookInDirection(GetPlayerDirection());
