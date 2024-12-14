@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
     private void Move(Vector2 direction, float speed)
     {
         _moveVelocity = direction * speed;
-
+        
         _rb.MovePosition(
             GameUtils.ComputeEulerStep(_rb.position, _moveVelocity, Time.fixedDeltaTime));
     }
