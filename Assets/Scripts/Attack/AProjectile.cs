@@ -46,9 +46,9 @@ public abstract class AProjectile : MonoBehaviour
         _rb.MovePosition(
             GameUtils.ComputeEulerStep(_rb.position, _velocity, Time.fixedDeltaTime));
 
-        if (GameManager.Instance.EscapedLevel(_rb.position, new(1, 1))) {
-            Destroy(this.gameObject);
-        }
+        //if (GameManager.Instance.EscapedLevel(_rb.position, new(1, 1))) {
+        //    Destroy(this.gameObject);
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
