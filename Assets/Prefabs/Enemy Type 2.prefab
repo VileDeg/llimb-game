@@ -280,7 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &2560735657643437062
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &3123956811407216840
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &7065627568970066460
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,7 +924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &7113636499797647233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,12 +1259,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6344a48308f24b75b1048dfe2036def7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   _normalMoveSpeed: 1.5
   _chaseSpeed: 3
-  _detectionRadius: 3
+  _detectionRadius: 4
   _randomMoveInterval: 2
-  _rechargeInterval: 3
+  _rechargeInterval: 2
   _projectilePrefab: {fileID: 1875691617403932040, guid: aea9650fe3530fa4a93fa7af476a19f5, type: 3}
   _shootingInterval: 4
   _projectileSpeed: 25

@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
     private void Move(Vector2 direction, float speed)
     {
         _moveVelocity = direction * speed;
-
+        
         _rb.MovePosition(
             GameUtils.ComputeEulerStep(_rb.position, _moveVelocity, Time.fixedDeltaTime));
     }
@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
 
         // Perform a Rigidbody2D.Cast to detect collisions in the direction of movement
         List<RaycastHit2D> hits = new(); // Array for storing results
-        ContactFilter2D filter = new() { layerMask = _collisionMask };
+        ContactFilter2D filter = new() { useLayerMask = true, layerMask = _collisionMask };
 
         int hitCount = _rb.Cast(direction, filter, hits, distance + _collisionOfsset); //
 

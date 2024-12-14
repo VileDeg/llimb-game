@@ -190,7 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &4440961837890784166
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &6411365034346641448
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,7 +651,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &6800145362602500701
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +843,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &7600967209751022172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,9 +1214,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalMoveSpeed: 1.5
   _chaseSpeed: 3
-  _detectionRadius: 3
+  _detectionRadius: 5
   _randomMoveInterval: 2
-  _rechargeInterval: 3
+  _rechargeInterval: 2
 --- !u!195 &5447978229682705331
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -218,9 +218,9 @@ public class GameManager : SingletonBase<GameManager>
 
     // === Debug Gizmos ===
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(Vector3.zero, new Vector3(_levelDimensions.x, _levelDimensions.y, 0));
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(Vector3.zero, new Vector3(_levelDimensions.x, _levelDimensions.y, 0));
+    //}
 }
