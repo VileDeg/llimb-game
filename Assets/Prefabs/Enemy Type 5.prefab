@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6134984161267264824}
   - component: {fileID: 706868020701460229}
   - component: {fileID: 3028737909005671799}
-  - component: {fileID: 6218269302895327993}
+  - component: {fileID: 3988870191993399494}
   m_Layer: 7
   m_Name: Canon
   m_TagString: Untagged
@@ -169,7 +169,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &6218269302895327993
+--- !u!114 &3988870191993399494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 117962605966649116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 1771759019315499786}
   - component: {fileID: 926875508028199151}
   - component: {fileID: 3782642385806198554}
-  - component: {fileID: 6873463126477517424}
+  - component: {fileID: 7583432119680605132}
   m_Layer: 7
   m_Name: Leg R
   m_TagString: Untagged
@@ -447,7 +447,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &6873463126477517424
+--- !u!114 &7583432119680605132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1509495954774007334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 8389472643347360824}
   - component: {fileID: 4002821342827286767}
   - component: {fileID: 4332643334949726921}
-  - component: {fileID: 5040353759397765007}
+  - component: {fileID: 810409292740156325}
   m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
@@ -629,7 +629,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &5040353759397765007
+--- !u!114 &810409292740156325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3067444735323144518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 3293716593361685473}
   - component: {fileID: 601563880673002681}
   - component: {fileID: 649397566598570087}
-  - component: {fileID: 3097678619802840608}
+  - component: {fileID: 2556519260979424072}
   m_Layer: 7
   m_Name: Leg L
   m_TagString: Untagged
@@ -821,7 +821,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &3097678619802840608
+--- !u!114 &2556519260979424072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3443823492445730064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5

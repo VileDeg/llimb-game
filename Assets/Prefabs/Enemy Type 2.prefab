@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6703823181079852037}
   - component: {fileID: 8448468022533313966}
   - component: {fileID: 7611846286494993976}
-  - component: {fileID: 600880892148525039}
+  - component: {fileID: 6032334350739505798}
   m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
@@ -268,7 +268,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &600880892148525039
+--- !u!114 &6032334350739505798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2498559727022939569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 836321394016992848}
   - component: {fileID: 4018922974378832792}
   - component: {fileID: 6717436535742856609}
-  - component: {fileID: 4136467462647813631}
+  - component: {fileID: 4526233697415167999}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -460,7 +460,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &4136467462647813631
+--- !u!114 &4526233697415167999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2560735657643437062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 4469608386029269827}
   - component: {fileID: 4664893294494289683}
   - component: {fileID: 909502748772691010}
-  - component: {fileID: 5910691449922827302}
+  - component: {fileID: 1950380252962532999}
   m_Layer: 7
   m_Name: Leg L
   m_TagString: Untagged
@@ -729,7 +729,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &5910691449922827302
+--- !u!114 &1950380252962532999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5763981895163879914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -756,7 +756,7 @@ GameObject:
   - component: {fileID: 5968033073723088730}
   - component: {fileID: 2018003912985301855}
   - component: {fileID: 8067674407680175426}
-  - component: {fileID: 3706518219251584341}
+  - component: {fileID: 7312939227452060953}
   m_Layer: 7
   m_Name: Leg R
   m_TagString: Untagged
@@ -912,7 +912,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &3706518219251584341
+--- !u!114 &7312939227452060953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7065627568970066460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -1195,6 +1195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5797567618695826161, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
+    - {fileID: 8312773915708007939, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3901639181913637404, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}

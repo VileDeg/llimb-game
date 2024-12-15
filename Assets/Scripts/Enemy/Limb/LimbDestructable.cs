@@ -18,4 +18,9 @@ public class LimbDestructable : ADestructable
         yield return new WaitForSeconds(time);
         Die();
     }
+
+    protected override List<System.Type> GetHostileDestructors()
+    {
+        return new List<System.Type> {};
+    }
 }

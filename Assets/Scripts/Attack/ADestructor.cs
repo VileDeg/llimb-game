@@ -6,25 +6,22 @@ using UnityEngine;
 public abstract class ADestructor : MonoBehaviour
 {
     [SerializeField]
-    private float _baseDamage = 5.0f;
+    protected float _baseDamage = 5.0f;
 
-    [SerializeField]
-    private float _maxDamage = 10.0f;
+    protected float _damage = 5f;
 
-    private float _damage = 5f;
-
-    private void Awake()
+    protected virtual void Awake()
     {
         _damage = _baseDamage;
     }
 
-    public float GetDamage()
+    public virtual float GetDamage()
     {
         return _damage;
     }
 
-    public void SetDamageByFactor(float factor)
+    public void SetDamage(float damage)
     {
-        _damage = _baseDamage * (1f - factor) + _maxDamage * factor;
+        _damage = damage;
     }
 }

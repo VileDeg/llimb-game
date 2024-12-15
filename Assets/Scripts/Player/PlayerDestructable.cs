@@ -6,39 +6,47 @@ using UnityEngine;
 public class PlayerDestructable : ADestructable
 {
     [SerializeField]
-    private HealthBar healthBar;
+    private HealthBar _healthBar;
+
 
     protected override void Awake()
     {
         base.Awake();
-        if (healthBar != null)
+        if (_healthBar != null)
         {
-            healthBar.SetMaxHealth((int)GetMaxHealth());
+            _healthBar.SetMaxHealth((int)GetMaxHealth());
         }
     }
+
+    protected override List<System.Type> GetHostileDestructors()
+    {
+        return new List<System.Type>
+        {
+            typeof(EnemyDestructor),
+            typeof(LimbDestructor),
+            typeof(EnemyProjectileDestructor)
+        };
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var hostileD = collision.gameObject.GetComponent<HostileDestructor>();
-        if (hostileD != null)
-        {
-            TakeDamage(hostileD.GetDamage());
-            LogUtil.Info($"{GetType().Name}: took damage {hostileD.GetDamage()}");
-            SpawnBlueCircle(collision.contacts[0].point);
+        ResolveHostileCollision(
+            collision.gameObject, 
+            hostileD => {
+                // Enemy is hostile to player
+                TakeDamage(hostileD.GetDamage(), DamageSource.Hostile);
+                LogUtil.Info($"{GetType().Name}: took damage {hostileD.GetDamage()}");
+                SpawnBlueCircle(collision.contacts[0].point);
 
-            if (healthBar != null)
-            {
-                healthBar.SetHealth((int)_currentHealth);
+                if (_healthBar != null) {
+                    _healthBar.SetHealth((int)_currentHealth);
+                }
             }
-
-            var phd = collision.gameObject.GetComponent<ProjectileHostileDestructor>();
-            if (phd != null)
-            {
-                // Destroy projectile when it does damage
-                Destroy(collision.gameObject);
-            }
-        }
+        );
     }
+
+
     protected override void Die()
     {
         base.Die(); // Call base method to destroy the player object

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectile : AProjectile
+public class PlayerMeleeProjectile : AProjectile
 {
     protected override LayerMask GetCollisionMask()
     {
-        return LayerMask.GetMask("Obstacle", "Player");
+        return LayerMask.GetMask();
     }
 }

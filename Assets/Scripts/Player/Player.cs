@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _gunObject;
 
+    //[SerializeField]
+    //private PlayerMeleeDestructor _meleeDestructor;
+
     [SerializeField] 
     private float _moveSpeed = 5f;
 
@@ -29,17 +33,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _cooldownRate = 50f;
 
+    //[SerializeField]
+    //private float _meleeDamage = 15f;
+
     [SerializeField]
-    private ChargeBar chargeBar;
+    private ChargeBar _chargeBar;
 
     private float _timingFactor = 0.1f;
 
-    // Must always be 1!
-    private const float _chargeMax = 1f;
-    private const float _minCooldown = 0.1f; // Minimum cooldown duration
+    private const float _chargeMax = 1f; // Must always be 1!
+    private const float _minCooldown = 0.5f; // Minimum cooldown duration
     private const float _cooldownMax = 1f;
     private float _reachedCharge = 0f;
-    //private float _charge = 0f;
 
     private float _readonly_charge = 0f;
 
@@ -61,8 +66,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    //private bool _attackHeld = false;
-
     private Rigidbody2D _rb;
     private Vector2 _moveVelocity;
 
@@ -74,23 +77,32 @@ public class Player : MonoBehaviour
     private LayerMask _collisionMask;
     public float _collisionOfsset = 0.05f; // Small buffer to prevent sticking
 
-    private SpriteRenderer _gunSprite;
+    //private SpriteRenderer _gunSprite;
 
     private GunState _gunState = GunState.None;
+    
 
-
+    public static event Action OnMeleeStrikePressed;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _attack = GetComponent<AShooting>();
-        _gunSprite = _gunObject.GetComponent<SpriteRenderer>();
+        //_gunSprite = _gunObject.GetComponent<SpriteRenderer>();
         _collisionMask = LayerMask.GetMask("Obstacle");
 
+        //if (_meleeDestructor != null) {
+        //    _meleeDestructor.SetDamage(_meleeDamage);
+        //} else {
+        //    LogUtil.Warn("Player _meleeDestructor missing");
+        //}
+        
+
         // Initialize the ChargeBar
-        if (chargeBar != null)
-        {
-            chargeBar.SetMaxCharge(_chargeMax); // Set max charge
+        if (_chargeBar != null) {
+            _chargeBar.SetMaxCharge(_chargeMax); // Set max charge
+        } else {
+            LogUtil.Warn("Player _chargeBar missing");
         }
     }
 
@@ -102,8 +114,7 @@ public class Player : MonoBehaviour
         switch (_gunState)
         {
             case GunState.Charge:
-                if (_Charge < _chargeMax)
-                {
+                if (_Charge < _chargeMax) {
                     _Charge += _chargeRate * _timingFactor * Time.deltaTime;
                 }
                 break;
@@ -212,11 +223,15 @@ public class Player : MonoBehaviour
         _Charge = 0f;
     }
 
-    void OnAttack()
+    // Called by Input System
+    void OnMeleeStrike()
     {
         // Nothing
+        LogUtil.Info("OnMeleeStrike");
+        OnMeleeStrikePressed?.Invoke();
     }
 
+    // Called by Input System
     void OnAttackCharge(InputValue value)
     {
         if (Mathf.Approximately(value.Get<float>(), 1f)) { // pressed
@@ -235,33 +250,29 @@ public class Player : MonoBehaviour
 
     private void UpdateChargeBar()
     {
-        if (chargeBar == null) return;
+        if (_chargeBar == null) return;
 
         switch (_gunState)
         {
             case GunState.Charge:
                 float chargeProgress = _Charge / _chargeMax;
-                chargeBar.SetCharge(chargeProgress); // Progress for charge
-                chargeBar.SetFillColor(Color.Lerp(Color.white, Color.yellow, chargeProgress)); // Yellow tint for charging
+                _chargeBar.SetCharge(chargeProgress); // Progress for charge
+                _chargeBar.SetFillColor(Color.Lerp(Color.white, Color.yellow, chargeProgress)); // Yellow tint for charging
                 break;
             case GunState.Cooldown:
                 if (_scaledCooldownMax > 0f)
                 {
                     float cooldownProgress = _Cooldown / _scaledCooldownMax; // Use scaled cooldown
-                    chargeBar.SetCharge(_reachedCharge - cooldownProgress); // Use reached charge as the starting point
-                    chargeBar.SetFillColor(Color.Lerp(Color.white, Color.blue, cooldownProgress)); // Blue tint for cooldown
+                    _chargeBar.SetCharge(_reachedCharge - cooldownProgress); // Use reached charge as the starting point
+                    _chargeBar.SetFillColor(Color.Lerp(Color.white, Color.blue, cooldownProgress)); // Blue tint for cooldown
                 }
                 break;
             case GunState.None:
-                chargeBar.SetCharge(0); // Reset to 0 when idle
-                chargeBar.SetFillColor(Color.white); // Default color when idle
+                _chargeBar.SetCharge(0); // Reset to 0 when idle
+                _chargeBar.SetFillColor(Color.white); // Default color when idle
                 break;
         }
     }
-
-
-
-
 
 
     void LookAtCursor()
