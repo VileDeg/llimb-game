@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5524643302408464649}
   - component: {fileID: 1809761089466375201}
   - component: {fileID: 7895119202581732322}
-  - component: {fileID: 5081478982297118606}
+  - component: {fileID: 7212623541663122267}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -168,7 +168,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &5081478982297118606
+--- !u!114 &7212623541663122267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1141895900033699648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 5100121318814709370}
   - component: {fileID: 528644863615704379}
   - component: {fileID: 4448759165222987330}
-  - component: {fileID: 2321366067790016377}
+  - component: {fileID: 3113475855764401807}
   m_Layer: 7
   m_Name: Hand Right
   m_TagString: Untagged
@@ -446,7 +446,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &2321366067790016377
+--- !u!114 &3113475855764401807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -455,7 +455,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2474371197573605204}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -559,7 +559,7 @@ GameObject:
   - component: {fileID: 6383602122170402689}
   - component: {fileID: 6948995937064315326}
   - component: {fileID: 8611311518798492650}
-  - component: {fileID: 2759836133739604624}
+  - component: {fileID: 3140375335932485038}
   m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
@@ -724,7 +724,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &2759836133739604624
+--- !u!114 &3140375335932485038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5051256007829220106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 5790982129215805320}
   - component: {fileID: 1746070229558487531}
   - component: {fileID: 9007505007334751424}
-  - component: {fileID: 6110002049949920312}
+  - component: {fileID: 2488588369574497511}
   m_Layer: 7
   m_Name: Hand Left
   m_TagString: Untagged
@@ -916,7 +916,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &6110002049949920312
+--- !u!114 &2488588369574497511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6667042500646903537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -1160,6 +1160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5797567618695826161, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
+    - {fileID: 8312773915708007939, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1139556645587537051, guid: 22d2c1b701cbf72408ec6d11a57f46e7, type: 3}

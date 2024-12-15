@@ -920,7 +920,7 @@ MonoBehaviour:
   m_Follow: {fileID: 935709569}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5.4
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1749,6 +1749,10 @@ PrefabInstance:
       propertyPath: chargeBar
       value: 
       objectReference: {fileID: 1388993087}
+    - target: {fileID: 1723072173284272830, guid: 612eaf30e20da514aa513d3ab8690266, type: 3}
+      propertyPath: _chargeBar
+      value: 
+      objectReference: {fileID: 1388993087}
     - target: {fileID: 1790563527019317066, guid: 612eaf30e20da514aa513d3ab8690266, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.3
@@ -2391,7 +2395,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.4
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2416,7 +2420,7 @@ Transform:
   m_GameObject: {fileID: 829427734}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.9816475, y: 10.95319, z: -10}
+  m_LocalPosition: {x: -11.580986, y: 10.782236, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2574,6 +2578,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Persistent Root
       objectReference: {fileID: 0}
+    - target: {fileID: 4403428301498089044, guid: c6de6cf97467ab541989f28a8169cac6, type: 3}
+      propertyPath: youDiedSceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 7fdccf07414653040be365615bc1236b, type: 3}
+    - target: {fileID: 4403428301498089044, guid: c6de6cf97467ab541989f28a8169cac6, type: 3}
+      propertyPath: mainMenuSceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: d83ed355c9c727e44a54095dca2e4e09, type: 3}
+    - target: {fileID: 4403428301498089044, guid: c6de6cf97467ab541989f28a8169cac6, type: 3}
+      propertyPath: levelSceneAssets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403428301498089044, guid: c6de6cf97467ab541989f28a8169cac6, type: 3}
+      propertyPath: 'levelSceneAssets.Array.data[0]'
+      value: 
+      objectReference: {fileID: 102900000, guid: b13a2372b596d7241ad50533919156b4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

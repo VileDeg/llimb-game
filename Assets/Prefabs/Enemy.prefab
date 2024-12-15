@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 771195015988623806}
   - component: {fileID: 7598974713988968877}
   - component: {fileID: 562877293918012711}
-  - component: {fileID: 8312773915708007939}
+  - component: {fileID: 4855755519438688326}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -115,7 +115,10 @@ MonoBehaviour:
   _maxHealth: 20
   _contactCircle: {fileID: 7360845480949925923, guid: da766bf2e8a44ea41834dbde021843ab, type: 3}
   _partsRoot: {fileID: 6872111978178771604}
---- !u!114 &8312773915708007939
+  _basePartsForce: 10
+  _maxPartsForce: 20
+  _partsDamage: 10
+--- !u!114 &4855755519438688326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,10 +127,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6425110757564263698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 076ec813543209f4e8a9d9ce21ba86aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  _baseDamage: 5
+  _maxDamage: 10
 --- !u!1 &6690156576953227037
 GameObject:
   m_ObjectHideFlags: 0

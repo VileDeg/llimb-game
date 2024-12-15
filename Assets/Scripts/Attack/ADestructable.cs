@@ -5,6 +5,13 @@ using UnityEngine;
 
 public abstract class ADestructable : MonoBehaviour
 {
+    // Who caused the damage, an enemy or an ally?
+    public enum DamageSource
+    {
+        Ally,
+        Hostile
+    }
+
     [SerializeField]
     private float _maxHealth = 5f;
     public delegate void DamageTakenDelegate(float damage);
@@ -24,6 +31,13 @@ public abstract class ADestructable : MonoBehaviour
         }
     }
 
+    protected List<System.Type> _hostileDestructors;
+
+    //public event Action<float> HealthChanged;
+    public event Action OnHostileDamageTaken;
+    
+    private List<SpriteRenderer> _spriteRenderers;
+
     public float GetMaxHealth()
     {
         return _maxHealth;
@@ -34,7 +48,7 @@ public abstract class ADestructable : MonoBehaviour
         _maxHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    protected virtual void TakeDamage(float damage, DamageSource source)
     {
         _currentHealth = Mathf.Max(0f, _currentHealth - damage);
 
@@ -42,48 +56,19 @@ public abstract class ADestructable : MonoBehaviour
         OnDamageTaken?.Invoke(damage);
     }
 
-    //public event Action<float> HealthChanged;
-
-    [SerializeField]
-    private GameObject _contactCircle;
-
-    private List<SpriteRenderer> _spriteRenderers;
-
     protected virtual void Awake()
     {
         _spriteRenderers = new List<SpriteRenderer>(
             GetComponentsInChildren<SpriteRenderer>()
             );
         _currentHealth = _maxHealth;
+
+        _hostileDestructors = GetHostileDestructors();
     }
 
-    //protected virtual void OnEnable()
-    //{
-    //    HealthChanged += OnHealthChanged;
-    //}
+    protected abstract List<System.Type> GetHostileDestructors();
 
-    //protected virtual void OnDisable()
-    //{
-    //    HealthChanged -= OnHealthChanged;
-    //}
-
-
-    //public void HealSelf(float heal)
-    //{
-    //    _currentHealth = Mathf.Min(_maxHealth, _currentHealth + heal);
-    //}
-
-    //public float GetDamage()
-    //{
-    //    return _damage;
-    //}
-
-
-    //protected bool NoHealthLeft()
-    //{
-    //    return _currentHealth <= 0;
-    //}
-
+    
     protected virtual void Die()
     {
         DestroySelf();
@@ -97,6 +82,24 @@ public abstract class ADestructable : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    protected void ResolveHostileCollision(
+        GameObject go,
+        System.Action<ADestructor> onHostileDetected)
+    {
+        ADestructor hostileD = null;
+        foreach (var type in _hostileDestructors) {
+            hostileD = go.GetComponent(type) as ADestructor;
+            if (hostileD != null) {
+                break;
+            }
+        }
+
+        if (hostileD != null) {
+            onHostileDetected?.Invoke(hostileD);
+        }
+    }
+
 
     private void UpdateSpriteColors()
     {
@@ -135,7 +138,6 @@ public abstract class ADestructable : MonoBehaviour
     {
         SpawnCircle(position, Color.blue);
     }
-
 
 
 

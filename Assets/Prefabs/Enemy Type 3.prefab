@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8344352136095100459}
   - component: {fileID: 256526512049115483}
   - component: {fileID: 140478309871876990}
-  - component: {fileID: 8160005172539213890}
+  - component: {fileID: 3563522988529198174}
   m_Layer: 7
   m_Name: Triangle (3)
   m_TagString: Untagged
@@ -182,7 +182,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &8160005172539213890
+--- !u!114 &3563522988529198174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 359174457972532859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 1361541247797748472}
   - component: {fileID: 783196792919098902}
   - component: {fileID: 3962413554366038570}
-  - component: {fileID: 6638861366059979106}
+  - component: {fileID: 8210884536467804993}
   m_Layer: 7
   m_Name: Triangle (2)
   m_TagString: Untagged
@@ -378,7 +378,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &6638861366059979106
+--- !u!114 &8210884536467804993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1231703601175656491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 8914208764299602123}
   - component: {fileID: 1113199515945866651}
   - component: {fileID: 3491147315334529543}
-  - component: {fileID: 466464218644578440}
+  - component: {fileID: 3698301284224620812}
   m_Layer: 7
   m_Name: Triangle (5)
   m_TagString: Untagged
@@ -660,7 +660,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &466464218644578440
+--- !u!114 &3698301284224620812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3231452122758516043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -773,7 +773,7 @@ GameObject:
   - component: {fileID: 2524809568825073366}
   - component: {fileID: 2737600117951311176}
   - component: {fileID: 7900210186075764649}
-  - component: {fileID: 7749806349075120537}
+  - component: {fileID: 670010494797009588}
   m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
@@ -928,7 +928,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &7749806349075120537
+--- !u!114 &670010494797009588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -937,7 +937,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6656157013460649556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 6863955908534483083}
   - component: {fileID: 9133791172184238540}
   - component: {fileID: 1314871663182701488}
-  - component: {fileID: 5542818967550137613}
+  - component: {fileID: 9111689766635376197}
   m_Layer: 7
   m_Name: Triangle (4)
   m_TagString: Untagged
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   _maxHealth: 5
   _contactCircle: {fileID: 0}
   _lifetimeSeconds: 5
---- !u!114 &5542818967550137613
+--- !u!114 &9111689766635376197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8293070639474721406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254b5fb63a770db48b486ff769a56c95, type: 3}
+  m_Script: {fileID: 11500000, guid: 35d8c851cb9b80544ab6971e56f8963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5

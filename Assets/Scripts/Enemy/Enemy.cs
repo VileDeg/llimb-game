@@ -19,13 +19,30 @@ public class Enemy : MonoBehaviour
 
     protected Rigidbody2D _rb;
 
+    private EnemyDestructable _destructable;
+
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _destructable = GetComponent<EnemyDestructable>();
+        if (!_destructable) {
+            LogUtil.Warn("Enemy _destructable missing");
+        }
 
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+    }
+
+    private void OnEnable()
+    {
+        _destructable.OnHostileDamageTaken += OnDamageTakenHandler;
+    }
+
+    private void OnDisable()
+    {
+        _destructable.OnHostileDamageTaken -= OnDamageTakenHandler;
     }
 
     private void Start()

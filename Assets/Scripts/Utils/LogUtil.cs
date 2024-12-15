@@ -6,7 +6,7 @@ public static class LogUtil
         UnityEngine.Debug.Log($"[{callerInfo}] {message}");
     }
 
-    public static void Warning(string message)
+    public static void Warn(string message)
     {
         string callerInfo = getCallerInfo();
         UnityEngine.Debug.LogWarning($"[{callerInfo}] {message}");
