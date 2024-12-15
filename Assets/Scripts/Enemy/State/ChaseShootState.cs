@@ -3,9 +3,11 @@
 public class ChaseShootState : EnemyState
 {
     private EnemyType2 _enemyType2;
+    
+    private float _timer; 
 
-    private float _shootTimer = 0.0f; // Timer for shooting intervals
-    private float _shootInterval = 0.5f; // Time between shots
+    private float _shootTimer = 0.0f;
+    private float _shootInterval = 0.5f;
 
     public ChaseShootState(EnemyType2 enemy) : base(enemy)
     {
@@ -14,27 +16,32 @@ public class ChaseShootState : EnemyState
 
     public override void Enter()
     {
-        Debug.Log($"{_enemy.name} has entered ChaseShootState.");
+        _timer = _enemyType2.ShootingInterval;
     }
 
     public override void Update()
     {
-        // Always chase the player
-        _enemyType2.ChasePlayer();
-
-        // Update shooting timer
+        _timer -= Time.deltaTime;
         _shootTimer -= Time.deltaTime;
 
-        // Check if it's time to shoot
-        if (_shootTimer <= 0f)
+
+        if (_timer <= 0)
         {
-            _shootTimer = _shootInterval; // Reset timer
-            _enemyType2.ShootPlayer();    // Shoot at the player
+            _enemyType2.SetState(new RechargeState(_enemyType2));
+        }
+        else
+        {
+            _enemyType2.ChasePlayer();
+            if (_shootTimer <= 0)
+            {
+                _shootTimer = _shootInterval;
+                _enemyType2.ShootPlayer();
+            }
         }
     }
 
     public override void Exit()
     {
-        Debug.Log($"{_enemy.name} has exited ChaseShootState."); // This should rarely happen in this locked behavior
+        // Optional: Cleanup chase-specific actions
     }
 }
