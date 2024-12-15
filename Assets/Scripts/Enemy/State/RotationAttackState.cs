@@ -12,20 +12,35 @@ public class RotationAttackState : EnemyState
 
     public override void Enter()
     {
-        Debug.Log($"{_enemy.name} has entered RotationAttackState.");
-        _timer = _enemyType3.RotationAttackInterval; // Duration of the attack
+        _timer = _enemyType3.RotationAttackInterval;
     }
 
     public override void Update()
     {
         _timer -= Time.deltaTime;
 
-        // Continuously rotate and attack regardless of timer
-        _enemyType3.RotateAttack();
+        if (_timer <= 0) // Rotate if have fuel
+        {
+            _enemyType3.SetState(new RechargeState(_enemyType3));
+        }
+        else
+        {
+            if (_enemyType3.PlayerInDetectionRadius())
+            {
+                _enemyType3.Agent.isStopped = false;
+                _enemyType3.RotateAttack();
+            }
+            else
+            {
+                // Enemy stops if it doesnt see the player
+                _enemyType3.Agent.isStopped =  true;
+                _enemyType3.Rotate();
+            }
+        }
     }
 
     public override void Exit()
     {
-        Debug.Log($"{_enemy.name} has exited RotationAttackState.");
+        _enemyType3.Agent.isStopped = false;
     }
 }
