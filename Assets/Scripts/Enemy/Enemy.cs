@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public float DetectionRadius => _detectionRadius;
     public float RandomMoveInterval => _randomMoveInterval;
     public float RechargeInterval => _rechargeInterval;
-    
+    public GameObject Player => _player;
     protected GameObject _player;
     protected EnemyState _currentState;
 
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
         _currentState.Enter();
     }
 
-    public bool PlayerInDetectionRadius()
+    public virtual bool PlayerInDetectionRadius()
     {
         if (_player == null) return false;
         return Vector3.Distance(transform.position, _player.transform.position) <= _detectionRadius;
@@ -124,4 +124,5 @@ public class Enemy : MonoBehaviour
         // Move to agro state when damaged by player
         ChooseAttack();
     }
+
 }
