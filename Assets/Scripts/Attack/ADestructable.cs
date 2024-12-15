@@ -14,10 +14,8 @@ public abstract class ADestructable : MonoBehaviour
 
     [SerializeField]
     private float _maxHealth = 5f;
-
-    [SerializeField]
-    private GameObject _contactCircle;
-
+    public delegate void DamageTakenDelegate(float damage);
+    public event DamageTakenDelegate OnDamageTaken;
     private float _readonly_currentHealth;
     protected float _currentHealth // Change this to protected
     {
@@ -53,10 +51,9 @@ public abstract class ADestructable : MonoBehaviour
     protected virtual void TakeDamage(float damage, DamageSource source)
     {
         _currentHealth = Mathf.Max(0f, _currentHealth - damage);
-        
-        if (source == DamageSource.Hostile) {
-            OnHostileDamageTaken?.Invoke();
-        }
+
+        // Trigger the OnDamageTaken event
+        OnDamageTaken?.Invoke(damage);
     }
 
     protected virtual void Awake()
@@ -109,17 +106,21 @@ public abstract class ADestructable : MonoBehaviour
         float healthPercentage = _currentHealth / _maxHealth;
         Color color = new(1f, healthPercentage, healthPercentage); // Red color based on health
 
-        foreach (var spriteRenderer in _spriteRenderers) {
+        foreach (var spriteRenderer in _spriteRenderers)
+        {
             spriteRenderer.color = color;
         }
     }
 
     protected void SpawnCircle(Vector3 position, Color color)
     {
-        // Spawn a circle at the specified position
-        if (_contactCircle != null) {
+        // Spawn a red circle at the specified position
+        if (_contactCircle != null)
+        {
+            //position.z = -10;
             var obj = Instantiate(_contactCircle, position, Quaternion.identity);
-            if (obj.TryGetComponent<SpriteRenderer>(out var renderer)) {
+            if (obj.TryGetComponent<SpriteRenderer>(out var renderer))
+            {
                 renderer.color = color;
                 renderer.sortingOrder = 5;
             }

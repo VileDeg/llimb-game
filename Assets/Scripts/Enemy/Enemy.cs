@@ -8,14 +8,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _detectionRadius = 5f;
     [SerializeField] private float _randomMoveInterval = 2f;
     [SerializeField] private float _rechargeInterval = 3f;
-    
+
     public NavMeshAgent Agent { get; private set; }
     public float ChaseSpeed => _chaseSpeed;
     public float DetectionRadius => _detectionRadius;
     public float RandomMoveInterval => _randomMoveInterval;
     public float RechargeInterval => _rechargeInterval;
-    
-    protected GameObject _player;
+    public GameObject _player;
     protected EnemyState _currentState;
 
     protected Rigidbody2D _rb;
@@ -64,11 +63,31 @@ public class Enemy : MonoBehaviour
         _currentState.Enter();
     }
 
-    public bool PlayerInDetectionRadius()
+    public virtual bool PlayerInDetectionRadius()
     {
         if (_player == null) return false;
-        return Vector3.Distance(transform.position, _player.transform.position) <= _detectionRadius;
+
+        Vector3 playerPosition = _player.transform.position;
+        Vector3 enemyPosition = transform.position;
+
+        // Check if the player is within the detection radius
+        float distanceToPlayer = Vector3.Distance(enemyPosition, playerPosition);
+        if (distanceToPlayer > _detectionRadius) return false;
+
+        // Perform a line-of-sight check
+        RaycastHit2D hit = Physics2D.Raycast(enemyPosition, playerPosition - enemyPosition, distanceToPlayer, LayerMask.GetMask("Obstacle"));
+        if (hit.collider != null)
+        {
+            // Obstacle detected, player not in sight
+            return false;
+        }
+
+        // Player is visible and within range
+        return true;
     }
+
+
+
 
     public Vector3 PickRandomDestination()
     {
@@ -83,22 +102,59 @@ public class Enemy : MonoBehaviour
 
         return randomDirection;
     }
-    
+
     public void ChasePlayer()
     {
         if (_player != null)
         {
-            Agent.SetDestination(_player.transform.position);
-            Agent.speed = _chaseSpeed;
-            LookInDirection(GetPlayerDirection());
+            Vector2 playerPosition = _player.transform.position;
+            Vector2 enemyPosition = transform.position;
+
+            // Calculate direction to the player
+            Vector2 direction = (playerPosition - enemyPosition).normalized;
+
+            // Ensure the enemy stops at a safe distance from the player
+            float distanceToPlayer = Vector2.Distance(playerPosition, enemyPosition);
+            float safeDistance = 1f; // Minimum distance to maintain from the player
+
+            if (distanceToPlayer > safeDistance)
+            {
+                Agent.SetDestination(playerPosition);
+                Agent.speed = _chaseSpeed;
+                LookInDirection(direction);
+            }
+            else
+            {
+                // Stop moving to prevent overlapping
+                Agent.isStopped = true;
+            }
         }
+    }
+    public bool CanSeePlayer()
+    {
+        if (_player == null) return false;
+
+        // Calculate the direction to the player
+        Vector2 directionToPlayer = (_player.transform.position - transform.position).normalized;
+
+        // Perform a raycast to check for obstacles
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, _detectionRadius, LayerMask.GetMask("Obstacle", "Player"));
+
+        // Check if the raycast hit the player
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
+        {
+            return true;
+        }
+
+        // The player is not visible (an obstacle is in the way)
+        return false;
     }
 
     public bool ReachedDestination()
     {
         return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
     }
-    
+
     public void LookInDirection(Vector3 direction)
     {
         direction.Normalize();
@@ -118,10 +174,5 @@ public class Enemy : MonoBehaviour
         return direction;
     }
 
-    public virtual void ChooseAttack() {}
-
-    protected virtual void OnDamageTakenHandler() {
-        // Move to agro state when damaged by player
-        ChooseAttack();
-    }
+    public virtual void ChooseAttack() { }
 }
