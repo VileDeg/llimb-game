@@ -7,7 +7,8 @@ public abstract class ADestructable : MonoBehaviour
 {
     [SerializeField]
     private float _maxHealth = 5f;
-
+    public delegate void DamageTakenDelegate(float damage);
+    public event DamageTakenDelegate OnDamageTaken;
     private float _readonly_currentHealth;
     protected float _currentHealth // Change this to protected
     {
@@ -36,6 +37,9 @@ public abstract class ADestructable : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHealth = Mathf.Max(0f, _currentHealth - damage);
+
+        // Trigger the OnDamageTaken event
+        OnDamageTaken?.Invoke(damage);
     }
 
     //public event Action<float> HealthChanged;
@@ -99,7 +103,8 @@ public abstract class ADestructable : MonoBehaviour
         float healthPercentage = _currentHealth / _maxHealth;
         Color color = new(1f, healthPercentage, healthPercentage); // Red color based on health
 
-        foreach (var spriteRenderer in _spriteRenderers) {
+        foreach (var spriteRenderer in _spriteRenderers)
+        {
             spriteRenderer.color = color;
         }
     }
@@ -107,10 +112,12 @@ public abstract class ADestructable : MonoBehaviour
     protected void SpawnCircle(Vector3 position, Color color)
     {
         // Spawn a red circle at the specified position
-        if (_contactCircle != null) {
+        if (_contactCircle != null)
+        {
             //position.z = -10;
             var obj = Instantiate(_contactCircle, position, Quaternion.identity);
-            if (obj.TryGetComponent<SpriteRenderer>(out var renderer)) {
+            if (obj.TryGetComponent<SpriteRenderer>(out var renderer))
+            {
                 renderer.color = color;
                 renderer.sortingOrder = 5;
             }

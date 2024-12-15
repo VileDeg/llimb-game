@@ -6,11 +6,11 @@ public class EnemyType2 : Enemy
     [SerializeField] private float _shootingInterval = 4f;
     [SerializeField] private float _projectileSpeed = 25;
     [SerializeField] private Transform _firePoint;
-    
+
     public float ShootingInterval => _shootingInterval;
     public GameObject ProjectilePrefab => _projectilePrefab;
     public Transform FirePoint => _firePoint;
-    
+
     public void ShootPlayer()
     {
         if (_player == null) // Check if the player is null
@@ -35,6 +35,10 @@ public class EnemyType2 : Enemy
 
     public override void ChooseAttack()
     {
-        SetState(new ChaseShootState(this));
+        if (!(_currentState is ChaseShootState)) // Only set state if not already in ChaseShootState
+        {
+            SetState(new ChaseShootState(this));
+        }
     }
+
 }

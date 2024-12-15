@@ -1,28 +1,28 @@
-using UnityEngine;
-
 public class ChaseState : EnemyState
 {
     public ChaseState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        // Optional: Set chase-specific animations or behaviors
+
     }
 
     public override void Update()
     {
-        if (!_enemy.PlayerInDetectionRadius())
+        if (_enemy.PlayerInDetectionRadius() && _enemy is EnemyType5 enemyType5 && enemyType5.HasLineOfSight())
         {
-            _enemy.SetState(new RandomMoveState(_enemy));
+            // Transition to ShootState if the player is visible
+            _enemy.SetState(new ShootState(enemyType5));
         }
         else
         {
-            _enemy.ChasePlayer(); // Uses Enemy's NavMeshAgent to follow the player
+            // Chase the player
+            _enemy.ChasePlayer();
         }
     }
 
     public override void Exit()
     {
-        // Optional: Cleanup chase-specific actions
+
     }
 }
