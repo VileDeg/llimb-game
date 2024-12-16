@@ -24,6 +24,7 @@ public class GameManager : SingletonBase<GameManager>
     }
 
     [Header("Scenes")]
+#if UNITY_EDITOR
     [SerializeField]
     private SceneAsset mainMenuSceneAsset;
 
@@ -32,6 +33,16 @@ public class GameManager : SingletonBase<GameManager>
 
     [SerializeField]
     private SceneAsset[] levelSceneAssets;
+#endif
+
+    [SerializeField]
+    private string mainMenuSceneName;
+
+    [SerializeField]
+    private string youDiedSceneName;
+
+    [SerializeField]
+    private string[] levelSceneNames;
 
     [Header("Level Settings")]
     [SerializeField]
@@ -42,41 +53,42 @@ public class GameManager : SingletonBase<GameManager>
 
     private GameState _readonly_gameState;
 
-    // Public properties for accessing scenes and state
-    public string MainMenuSceneName => mainMenuSceneAsset != null ? mainMenuSceneAsset.name : string.Empty;
-    public string YouDiedSceneName => youDiedSceneAsset != null ? youDiedSceneAsset.name : string.Empty;
+    public string MainMenuSceneName => mainMenuSceneName;
+    public string YouDiedSceneName => youDiedSceneName;
     public string[] ListOfLevelNames => _listOfLevelNames;
     public int CurrentLevelIndex => _currentLevelIndex;
 
     public GameState CurrentGameState
     {
         get => _readonly_gameState;
-        private set
-        {
-            _readonly_gameState = value;
-        }
+        private set => _readonly_gameState = value;
     }
 
     private bool _isLevelTimerActive = false;
     private float _readonly_timeSpentInLevel = 0f;
+
     protected override void Awake()
     {
         base.Awake();
 
-        // Initialize level names from SceneAssets
-        if (levelSceneAssets != null && levelSceneAssets.Length > 0)
-        {
-            _listOfLevelNames = new string[levelSceneAssets.Length];
-            for (int i = 0; i < levelSceneAssets.Length; i++)
-            {
-                _listOfLevelNames[i] = levelSceneAssets[i].name;
+        _listOfLevelNames = levelSceneNames ?? Array.Empty<string>();
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        // Update scene names based on SceneAssets for editor usability
+        mainMenuSceneName = mainMenuSceneAsset != null ? mainMenuSceneAsset.name : string.Empty;
+        youDiedSceneName = youDiedSceneAsset != null ? youDiedSceneAsset.name : string.Empty;
+
+        if (levelSceneAssets != null) {
+            levelSceneNames = new string[levelSceneAssets.Length];
+            for (int i = 0; i < levelSceneAssets.Length; i++) {
+                levelSceneNames[i] = levelSceneAssets[i] != null ? levelSceneAssets[i].name : string.Empty;
             }
         }
-        else
-        {
-            _listOfLevelNames = Array.Empty<string>();
-        }
     }
+#endif
 
     private void Update()
     {
@@ -85,38 +97,23 @@ public class GameManager : SingletonBase<GameManager>
 
     private void ProcessInput()
     {
-        //switch (CurrentGameState)
-        //{
-            //case GameState.Playing:
-                if (Input.GetKeyUp(KeyCode.R)) // Restart level
-                {
-                    RestartCurrentLevel();
-                }
-                else if (Input.GetKeyUp(KeyCode.N)) // Next level
-                {
-                    LoadLevel_Cheat(LoadLevelMode.Next);
-                }
-                else if (Input.GetKeyUp(KeyCode.B)) // Previous level
-                {
-                    LoadLevel_Cheat(LoadLevelMode.Previous);
-                }
-                else if (Input.GetKeyUp(KeyCode.Escape)) // Main menu
-                {
-                    GoToMainMenu();
-                }
-               // break;
-
-            //case GameState.GameOver:
-            //    break;
-        //}
+        if (Input.GetKeyUp(KeyCode.R)) // Restart level
+        {
+            RestartCurrentLevel();
+        } else if (Input.GetKeyUp(KeyCode.N)) // Next level
+          {
+            LoadLevel_Cheat(LoadLevelMode.Next);
+        } else if (Input.GetKeyUp(KeyCode.B)) // Previous level
+          {
+            LoadLevel_Cheat(LoadLevelMode.Previous);
+        } else if (Input.GetKeyUp(KeyCode.Escape)) // Main menu
+          {
+            GoToMainMenu();
+        }
     }
-
-
-    // === Scene Loading Methods ===
 
     public void RestartCurrentLevel()
     {
-        // Get the current level name and reload it
         string currentLevel = ListOfLevelNames[CurrentLevelIndex];
         Debug.Log($"GameManager: Restarting current level: {currentLevel}");
         LoadScene(currentLevel);
@@ -124,28 +121,34 @@ public class GameManager : SingletonBase<GameManager>
 
     public void GoToMainMenu()
     {
-        // Load the main menu scene
         Debug.Log("GameManager: Returning to main menu");
         LoadScene(MainMenuSceneName);
     }
 
-
     public void LoadYouDiedScene()
     {
-        if (!string.IsNullOrEmpty(YouDiedSceneName))
-        {
+        if (!string.IsNullOrEmpty(YouDiedSceneName)) {
             LoadScene(YouDiedSceneName);
         }
     }
+    public void GameLost()
+    {
+        Debug.Log("GameManager: Player lost the game.");
 
+        // Transition to a "Game Over" state or scene
+        CurrentGameState = GameState.GameOver;
+        if (!string.IsNullOrEmpty(YouDiedSceneName)) {
+            LoadScene(YouDiedSceneName);
+        } else {
+            Debug.LogWarning("GameManager: No 'You Died' scene is set.");
+        }
+    }
 
     private void LoadLevel_Cheat(LoadLevelMode mode)
     {
-        switch (mode)
-        {
+        switch (mode) {
             case LoadLevelMode.Next:
-                if (_currentLevelIndex < _listOfLevelNames.Length - 1)
-                {
+                if (_currentLevelIndex < _listOfLevelNames.Length - 1) {
                     LoadLevel(_currentLevelIndex + 1);
                 }
                 break;
@@ -155,8 +158,7 @@ public class GameManager : SingletonBase<GameManager>
                 break;
 
             case LoadLevelMode.Previous:
-                if (_currentLevelIndex > 0)
-                {
+                if (_currentLevelIndex > 0) {
                     LoadLevel(_currentLevelIndex - 1);
                 }
                 break;
@@ -169,38 +171,21 @@ public class GameManager : SingletonBase<GameManager>
 
     public void LoadLevel(int index)
     {
-        if (index >= 0 && index < _listOfLevelNames.Length)
-        {
+        if (index >= 0 && index < _listOfLevelNames.Length) {
             _currentLevelIndex = index;
             LoadScene(_listOfLevelNames[index]);
         }
     }
-    public bool EscapedLevel(Vector2 pos, Vector2 size)
-    {
-        Vector2 ps = pos + size;
-        Vector2 half = _levelDimensions * 0.5f;
 
-        return ps.x < -half.x || ps.x > half.x ||
-               ps.y < -half.y || ps.y > half.y;
-    }
     public void LoadScene(string sceneName)
     {
         StopLevelTimer();
         SceneManager.LoadScene(sceneName);
     }
 
-    public void GameLost()
-    {
-        Debug.Log("You lost! Loading 'You Died' scene.");
-        LoadYouDiedScene();
-    }
-
-    // === Timer Methods ===
-
     private void UpdateLevelTimer()
     {
-        if (_isLevelTimerActive)
-        {
+        if (_isLevelTimerActive) {
             _readonly_timeSpentInLevel += Time.deltaTime;
         }
     }
@@ -215,12 +200,4 @@ public class GameManager : SingletonBase<GameManager>
     {
         _isLevelTimerActive = false;
     }
-
-    // === Debug Gizmos ===
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireCube(Vector3.zero, new Vector3(_levelDimensions.x, _levelDimensions.y, 0));
-    //}
 }
