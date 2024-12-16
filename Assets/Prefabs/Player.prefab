@@ -905,9 +905,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9c7ae3427d59948a17f6ed62059642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 30
+  _maxHealth: 40
   _contactCircle: {fileID: 7360845480949925923, guid: da766bf2e8a44ea41834dbde021843ab, type: 3}
-  healthBar: {fileID: 0}
+  _healthBar: {fileID: 0}
 --- !u!114 &4546678766387695889
 MonoBehaviour:
   m_ObjectHideFlags: 0
