@@ -32,18 +32,37 @@ public class PlayerDestructable : ADestructable
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ResolveHostileCollision(
-            collision.gameObject, 
+            collision.gameObject,
             hostileD => {
-                // Enemy is hostile to player
                 TakeDamage(hostileD.GetDamage(), DamageSource.Hostile);
                 LogUtil.Info($"{GetType().Name}: took damage {hostileD.GetDamage()}");
                 SpawnBlueCircle(collision.contacts[0].point);
 
-                if (_healthBar != null) {
+                if (_healthBar != null)
+                {
                     _healthBar.SetHealth((int)_currentHealth);
                 }
             }
         );
+        
+        // MedPack Management
+        var medPack = collision.gameObject.GetComponent<MedPack>();
+        if (medPack != null)
+        {
+            Heal(medPack.GetHealAmount());
+            Destroy(collision.gameObject);
+        }
+    }
+
+
+    protected override void Heal(float amount)
+    {
+        base.Heal(amount);
+        if (_healthBar != null)
+        {
+            _healthBar.SetHealth((int)_currentHealth);
+        }
+        Debug.Log($"{GetType().Name}: healed {amount}, current health: {_currentHealth}");
     }
 
 
