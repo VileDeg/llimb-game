@@ -138,7 +138,8 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        AttemptMove();
+        Vector2 moveDirection = new(_moveHoriz, _moveVert);
+        AttemptMove(moveDirection, _moveSpeed, true);
     }
 
     private void Move(Vector2 direction, float speed)
@@ -149,29 +150,26 @@ public class Player : MonoBehaviour
             GameUtils.ComputeEulerStep(_rb.position, _moveVelocity, Time.fixedDeltaTime));
     }
 
-    private void AttemptMove()
+    private void AttemptMove(Vector2 moveDirection, float moveSpeed, bool wannaSlide)
     {
-        Vector2 direction = new Vector2(_moveHoriz, _moveVert);
-
-        if (direction == Vector2.zero)
+        if (moveDirection == Vector2.zero) { 
             return; // No movement input
+        }
 
         // Calculate the distance to move
-        float distance = _moveSpeed * Time.fixedDeltaTime;
+        float moveDistance = moveSpeed * Time.fixedDeltaTime;
 
         // Perform a Rigidbody2D.Cast to detect collisions in the direction of movement
         List<RaycastHit2D> hits = new(); // Array for storing results
         ContactFilter2D filter = new() { useLayerMask = true, layerMask = _collisionMask };
 
-        int hitCount = _rb.Cast(direction, filter, hits, distance + _collisionOfsset); //
+        int hitCount = _rb.Cast(moveDirection, filter, hits, moveDistance + _collisionOfsset); 
 
         // Check if there's a collision
         if (hitCount == 0) {
             // No collision, move the player
-            //_rb.MovePosition(_rb.position + direction * distance);
-            Move(direction, _moveSpeed);
-        } else {
-            // Collision detected, stop movement or adjust position (optional)
+            Move(moveDirection, moveSpeed);
+        } else if (wannaSlide) {
             // Slide along walls by allowing movement parallel to the collision surface
 
             // Get the first hit information
@@ -181,17 +179,17 @@ public class Player : MonoBehaviour
             Vector2 slideDirection = Vector2.Perpendicular(hit.normal);
 
             // Check which side of the perpendicular is aligned with the original input direction
-            if (Vector2.Dot(slideDirection, direction) < 0) {
+            if (Vector2.Dot(slideDirection, moveDirection) < 0) {
                 slideDirection = -slideDirection; // Flip if the direction is opposite
             }
 
             // Calculate the sliding speed multiplier based on the angle
-            float slideSpeedMultiplier = Mathf.Abs(Vector2.Dot(direction, slideDirection));
+            float slideSpeedMultiplier = Mathf.Abs(Vector2.Dot(moveDirection, slideDirection));
 
             // Adjust the slide speed dynamically
-            float slideSpeed = _moveSpeed * slideSpeedMultiplier;
+            float slideSpeed = moveSpeed * slideSpeedMultiplier;
 
-            Move(slideDirection, slideSpeed);
+            AttemptMove(slideDirection, slideSpeed, false);
         }
     }
 
