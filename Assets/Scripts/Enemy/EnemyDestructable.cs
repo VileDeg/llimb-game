@@ -18,6 +18,9 @@ public class EnemyDestructable : ADestructable
     [SerializeField]
     private float _partsDamage = 10f;
 
+    [SerializeField] 
+    private int _score = 10;
+
     // Torque [rad]
     private float _basePartsTorque = 0f;
     private float _maxPartsTorque = 10f;
@@ -48,9 +51,14 @@ public class EnemyDestructable : ADestructable
     {
         BlowUp();
 
-        // Destroy self
+        if (ScoreManager.Instance)
+        {
+            ScoreManager.Instance.AddScore(_score);
+        }
+
         base.Die();
     }
+
 
     private void BlowUp()
     {
@@ -110,5 +118,10 @@ public class EnemyDestructable : ADestructable
                 SpawnRedCircle(collision.contacts[0].point);
             }
         );
+    }
+
+    public int GetScore()
+    {
+        return _score;
     }
 }

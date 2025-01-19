@@ -58,6 +58,11 @@ public abstract class ADestructable : MonoBehaviour
             OnHostileDamageTaken?.Invoke();
         }
     }
+    
+    protected virtual void Heal(float amount)
+    {
+        _currentHealth = Mathf.Min(_currentHealth + amount, GetMaxHealth());
+    }
 
     protected virtual void Awake()
     {
@@ -102,7 +107,6 @@ public abstract class ADestructable : MonoBehaviour
             onHostileDetected?.Invoke(hostileD);
         }
     }
-
 
     private void UpdateSpriteColors()
     {

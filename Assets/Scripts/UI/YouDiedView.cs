@@ -11,6 +11,14 @@ public class YouDiedView : AView
         Initialize();
     }
 
+    private void Start()
+    {
+        if (ScoreManager.Instance)
+        {
+            ScoreManager.Instance.ResetScore();
+        }
+    }
+
     public override void Initialize()
     {
         restartButton.onClick.AddListener(RestartLevel);

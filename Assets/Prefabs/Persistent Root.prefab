@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315130637520896472}
   - component: {fileID: 4403428301498089044}
+  - component: {fileID: 5026289919003545648}
   m_Layer: 0
   m_Name: Persistent Root
   m_TagString: Untagged
@@ -44,8 +45,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f702ddd88656d6547bc77c01c6f12952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _listOfLevelNames: []
-  _mainMenuSceneName: 
-  _youDiedSceneName: 
+  mainMenuSceneAsset: {fileID: 0}
+  youDiedSceneAsset: {fileID: 0}
+  levelSceneAssets: []
+  mainMenuSceneName: 
+  youDiedSceneName: 
+  levelSceneNames: []
   _levelDimensions: {x: 16, y: 10}
-  IsGamePaused: 0
+--- !u!114 &5026289919003545648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783140559206262669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75ac14417c8719448efd0d9cc4ffe4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
