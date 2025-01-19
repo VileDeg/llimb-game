@@ -70,5 +70,10 @@ public class PlayerDestructable : ADestructable
     {
         base.Die(); // Call base method to destroy the player object
         GameManager.Instance.GameLost(); // Notify the GameManager that the player has died
+        
+        if (ScoreManager.Instance)
+        {
+            ScoreManager.Instance.SaveScore();
+        }
     }
 }
