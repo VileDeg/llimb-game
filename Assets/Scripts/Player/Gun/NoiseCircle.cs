@@ -30,7 +30,7 @@ public class NoiseCircle : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             // Gradually decrease the alpha value
-            float alpha = Mathf.Lerp(0.3f, 0f, elapsedTime / duration);
+            float alpha = Mathf.Lerp(0.1f, 0f, elapsedTime / duration);
             _spriteRenderer.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
 
             yield return null;

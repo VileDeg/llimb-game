@@ -1216,8 +1216,8 @@ MonoBehaviour:
   _chaseSpeed: 3
   _randomMoveInterval: 2
   _rechargeInterval: 2
-  _fovAngle: 90
-  _fovRange: 2
+  _fovAngle: 80
+  _fovRange: 10
   _rearDetectionRange: 3
   _detectionCirclePrefab: {fileID: 4266654881792379715, guid: d3095924be7cce242941218969d822e3, type: 3}
   _detectionConePrefab: {fileID: 923380340782548706, guid: c484bbb13de33d84fa994df50c7c915e, type: 3}

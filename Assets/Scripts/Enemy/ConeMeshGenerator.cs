@@ -4,8 +4,8 @@ using UnityEngine;
 public class ConeMeshGenerator : MonoBehaviour
 {
     public float coneAngle = 90f; // Angle of the cone in degrees
-    public float coneRadius = 10f; // Radius of the cone
-    public int segments = 30; // Number of segments
+    public float coneRadius = 5f; // Default radius of the cone
+    public int segments = 50; // Number of segments for smoothness
 
     private Mesh _mesh;
 
@@ -14,16 +14,22 @@ public class ConeMeshGenerator : MonoBehaviour
         GenerateConeMesh();
     }
 
-    public void GenerateConeMesh()
+    public void SetConeRadius(float radius)
+    {
+        coneRadius = radius; // Update radius dynamically
+        GenerateConeMesh(); // Regenerate the cone mesh
+    }
+
+    private void GenerateConeMesh()
     {
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
 
-        int verticesCount = segments + 2; // +2 for center and closing the loop
+        int verticesCount = segments + 2; // +2 for the center and the last point closing the loop
         Vector3[] vertices = new Vector3[verticesCount];
-        int[] triangles = new int[segments * 3]; // Each triangle has 3 indices
+        int[] triangles = new int[segments * 3]; // Each segment has 3 indices for the triangle
 
-        // Center vertex
+        // Set the center of the cone
         vertices[0] = Vector3.zero;
 
         float angleStep = coneAngle / segments;
@@ -35,25 +41,21 @@ public class ConeMeshGenerator : MonoBehaviour
             float currentAngle = startAngle + (i * angleStep);
             float radians = currentAngle * Mathf.Deg2Rad;
 
-            // Apply the coneRadius directly
             vertices[i + 1] = new Vector3(Mathf.Sin(radians), Mathf.Cos(radians), 0) * coneRadius;
 
             if (i < segments)
             {
-                // Add triangles
+                // Define triangles
                 int triangleIndex = i * 3;
-                triangles[triangleIndex] = 0; // Center
+                triangles[triangleIndex] = 0; // Center point
                 triangles[triangleIndex + 1] = i + 1; // Current vertex
                 triangles[triangleIndex + 2] = i + 2; // Next vertex
             }
         }
 
-        // Assign vertices and triangles to the mesh
         _mesh.vertices = vertices;
         _mesh.triangles = triangles;
 
         _mesh.RecalculateNormals(); // Optional for lighting
     }
-
 }
-

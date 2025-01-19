@@ -115,6 +115,7 @@ public class Enemy : MonoBehaviour
     }
 
 
+
     public virtual bool HasLineOfSight()
     {
         if (_player == null) return false;
@@ -201,13 +202,18 @@ public class Enemy : MonoBehaviour
             // Instantiate the detection cone and match its scale to the FOV range
             _coneInstance = Instantiate(_detectionConePrefab, transform.position, Quaternion.identity, transform);
 
-            // Ensure the cone's local scale reflects the radius directly
-            _coneInstance.transform.localScale = new Vector3(_fovRange, _fovRange, 1); // Radius = range
+            // Set the radius dynamically
+            var coneMeshGenerator = _coneInstance.GetComponent<ConeMeshGenerator>();
+            if (coneMeshGenerator != null)
+            {
+                coneMeshGenerator.SetConeRadius(_fovRange); // Dynamically set cone radius to match detection range
+            }
 
             // Align the cone with the enemy's forward direction
             _coneInstance.transform.localRotation = Quaternion.Euler(0, 0, 0); // Default alignment
         }
     }
+
 
 
 
