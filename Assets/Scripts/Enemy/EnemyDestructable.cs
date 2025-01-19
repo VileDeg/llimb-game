@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Android;
 
 [RequireComponent(typeof(Collider2D))]
 public class EnemyDestructable : ADestructable
@@ -54,6 +55,8 @@ public class EnemyDestructable : ADestructable
         if (ScoreManager.Instance)
         {
             ScoreManager.Instance.AddScore(_score);
+            // TODO: rework:
+            GameManager.Instance.RegisterEnemyDeath();
         }
 
         base.Die();
