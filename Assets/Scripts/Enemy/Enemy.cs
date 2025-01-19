@@ -5,30 +5,40 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _normalMoveSpeed = 1.5f;
     [SerializeField] private float _chaseSpeed = 3f;
-    [SerializeField] private float _detectionRadius = 5f;
     [SerializeField] private float _randomMoveInterval = 2f;
     [SerializeField] private float _rechargeInterval = 3f;
-    
+
+    [Header("Detection Settings")]
+    [SerializeField] protected float _fovAngle = 90f; // Field of View angle in degrees
+    [SerializeField] protected float _fovRange = 10f; // Detection range within the field of view
+    [SerializeField] protected float _rearDetectionRange = 3f; // Detection range outside the field of view
+    [SerializeField]
+    private GameObject _detectionCirclePrefab; // Prefab for the circular range
+
+    [SerializeField]
+    private GameObject _detectionConePrefab; // Prefab for the 90-degree cone range
+
+    private GameObject _circleInstance;
+    private GameObject _coneInstance;
     public NavMeshAgent Agent { get; private set; }
     public float ChaseSpeed => _chaseSpeed;
-    public float DetectionRadius => _detectionRadius;
     public float RandomMoveInterval => _randomMoveInterval;
     public float RechargeInterval => _rechargeInterval;
     public GameObject Player => _player;
+
     protected GameObject _player;
     protected EnemyState _currentState;
 
-    protected Rigidbody2D _rb;
-
+    private Rigidbody2D _rb;
     private EnemyDestructable _destructable;
-
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _destructable = GetComponent<EnemyDestructable>();
-        if (!_destructable) {
-            LogUtil.Warn("Enemy _destructable missing");
+        if (!_destructable)
+        {
+            Debug.LogWarning($"{name}: Missing EnemyDestructable component.");
         }
 
         Agent = GetComponent<NavMeshAgent>();
@@ -38,23 +48,33 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        _destructable.OnHostileDamageTaken += OnDamageTakenHandler;
+        NoiseManager.OnNoiseMade += OnNoiseHeard;
+        if (_destructable != null)
+        {
+            _destructable.OnHostileDamageTaken += OnDamageTakenHandler;
+        }
     }
 
     private void OnDisable()
     {
-        _destructable.OnHostileDamageTaken -= OnDamageTakenHandler;
+        NoiseManager.OnNoiseMade -= OnNoiseHeard;
+        if (_destructable != null)
+        {
+            _destructable.OnHostileDamageTaken -= OnDamageTakenHandler;
+        }
     }
 
     private void Start()
     {
-        _player = FindAnyObjectByType<Player>().gameObject;
+        _player = FindFirstObjectByType<Player>().gameObject;
         SetState(new IdleState(this));
+        InitializeDetectionVisuals();
     }
 
     private void Update()
     {
         _currentState?.Update();
+        UpdateDetectionVisuals();
     }
 
     public void SetState(EnemyState newState)
@@ -67,23 +87,46 @@ public class Enemy : MonoBehaviour
     public virtual bool PlayerInDetectionRadius()
     {
         if (_player == null) return false;
-        return Vector3.Distance(transform.position, _player.transform.position) <= _detectionRadius;
-    }
 
-    public Vector3 PickRandomDestination()
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * _detectionRadius;
-        randomDirection += transform.position;
+        // Calculate direction and distance to the player
+        Vector3 directionToPlayer = (_player.transform.position - transform.position).normalized;
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
 
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit navHit, _detectionRadius, NavMesh.AllAreas))
+        // Check if the player is within the rear detection range
+        if (distanceToPlayer <= _rearDetectionRange)
         {
-            Agent.SetDestination(navHit.position);
-            Agent.speed = _normalMoveSpeed;
+            return HasLineOfSight(); // Use line of sight for rear detection
         }
 
-        return randomDirection;
+        // Check if the player is within the FOV range and angle
+        if (distanceToPlayer <= _fovRange)
+        {
+            // Calculate the angle between the enemy's forward direction and the player
+            float angleToPlayer = Vector3.Angle(transform.up, directionToPlayer);
+
+            // Check if the player is within the FOV cone
+            if (angleToPlayer <= _fovAngle / 2f)
+            {
+                return HasLineOfSight(); // Use line of sight for FOV detection
+            }
+        }
+
+        return false; // Player is outside the detection range
     }
-    
+
+
+    public virtual bool HasLineOfSight()
+    {
+        if (_player == null) return false;
+
+        Vector3 directionToPlayer = (_player.transform.position - transform.position).normalized;
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+
+        // Perform a raycast to check for obstacles
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, distanceToPlayer, LayerMask.GetMask("Obstacle"));
+        return hit.collider == null; // True if no obstacle blocks the way
+    }
+
     public void ChasePlayer()
     {
         if (_player != null)
@@ -94,35 +137,95 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public bool ReachedDestination()
-    {
-        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
-    }
-    
     public void LookInDirection(Vector3 direction)
     {
-        direction.Normalize();
-        Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction);  // Only rotate around the Z-axis
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _chaseSpeed); // Smooth rotation
-    }
-
-    public Vector2 GetPlayerDirection()
-    {
-        if (_player == null) // Check if the player is null
+        if (direction.sqrMagnitude > 0)
         {
-            Debug.LogWarning("Player reference is null. Cannot get direction.");
-            return Vector2.zero; // Return a default direction
+            Quaternion lookRotation = Quaternion.LookRotation(Vector3.forward, direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _chaseSpeed);
         }
-
-        Vector2 direction = (_player.transform.position - transform.position).normalized;
-        return direction;
     }
 
-    public virtual void ChooseAttack() {}
+    public Vector3 GetPlayerDirection()
+    {
+        if (_player == null) return Vector3.zero;
+        return (_player.transform.position - transform.position).normalized;
+    }
 
-    protected virtual void OnDamageTakenHandler() {
-        // Move to agro state when damaged by player
+    public virtual void ChooseAttack() { }
+
+    protected virtual void OnNoiseHeard(Vector3 noisePosition, float noiseRadius)
+    {
+        if (Vector3.Distance(transform.position, noisePosition) <= noiseRadius)
+        {
+            SetState(new ChaseState(this));
+            Agent.SetDestination(noisePosition);
+        }
+    }
+
+    protected virtual void OnDamageTakenHandler()
+    {
         ChooseAttack();
     }
+    public bool ReachedDestination()
+    {
+        // Check if the agent has finished its path and reached its stopping point
+        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
+    }
+    public Vector3 PickRandomDestination()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * _fovRange; // Use FOV range as the maximum distance
+        randomDirection += transform.position; // Offset by the enemy's position
+
+        NavMeshHit navHit;
+        if (NavMesh.SamplePosition(randomDirection, out navHit, _fovRange, NavMesh.AllAreas))
+        {
+            Agent.SetDestination(navHit.position);
+            Agent.speed = _normalMoveSpeed;
+            return navHit.position;
+        }
+
+        return transform.position; // Return the current position if no valid destination found
+    }
+    private void InitializeDetectionVisuals()
+    {
+        if (_detectionCirclePrefab != null)
+        {
+            // Instantiate the detection circle and match its scale to the rear detection range
+            _circleInstance = Instantiate(_detectionCirclePrefab, transform.position, Quaternion.identity, transform);
+            _circleInstance.transform.localScale = new Vector3(_rearDetectionRange * 2, _rearDetectionRange * 2, 1); // Diameter = range * 2
+        }
+
+        if (_detectionConePrefab != null)
+        {
+            // Instantiate the detection cone and match its scale to the FOV range
+            _coneInstance = Instantiate(_detectionConePrefab, transform.position, Quaternion.identity, transform);
+
+            // Ensure the cone's local scale reflects the radius directly
+            _coneInstance.transform.localScale = new Vector3(_fovRange, _fovRange, 1); // Radius = range
+
+            // Align the cone with the enemy's forward direction
+            _coneInstance.transform.localRotation = Quaternion.Euler(0, 0, 0); // Default alignment
+        }
+    }
+
+
+
+    private void UpdateDetectionVisuals()
+    {
+        if (_circleInstance != null)
+        {
+            _circleInstance.transform.position = transform.position; // Keep the circle centered on the enemy
+        }
+
+        if (_coneInstance != null)
+        {
+            _coneInstance.transform.position = transform.position; // Keep the cone centered on the enemy
+
+            // Align the cone with the enemy's forward direction
+            _coneInstance.transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z);
+        }
+    }
+
 
 }

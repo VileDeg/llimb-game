@@ -11,7 +11,7 @@ public class EnemyType3 : Enemy
     {
         transform.Rotate(0, 0, _rotationSpeed * Time.deltaTime);
     }
-
+    
     public void RotateAttack()
     {
         // Perform the rotation
@@ -48,7 +48,7 @@ public class EnemyType3 : Enemy
         }
     }
 
-
+    
     public override void ChooseAttack()
     {
         SetState(new RotationAttackState(this));

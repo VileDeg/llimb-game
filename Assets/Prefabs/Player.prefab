@@ -878,6 +878,7 @@ MonoBehaviour:
   _chargeRate: 5
   _cooldownRate: 10
   _chargeBar: {fileID: 0}
+  noiseCirclePrefab: {fileID: 8372706739450771214, guid: 0d54b90a8c43f5849b7612faff2b310b, type: 3}
   _collisionOfsset: 0.05
 --- !u!114 &5280013916112778861
 MonoBehaviour:

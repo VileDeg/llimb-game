@@ -8,7 +8,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(IAttack))]
 public class Player : MonoBehaviour
 {
-    private enum GunState { 
+    private enum GunState
+    {
         None = -1,
         Charge,
         Cooldown
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     //[SerializeField]
     //private PlayerMeleeDestructor _meleeDestructor;
 
-    [SerializeField] 
+    [SerializeField]
     private float _moveSpeed = 5f;
 
     [SerializeField]
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private ChargeBar _chargeBar;
-
+    [SerializeField] private GameObject noiseCirclePrefab;
     private float _timingFactor = 0.1f;
 
     private const float _chargeMax = 1f; // Must always be 1!
@@ -52,7 +53,8 @@ public class Player : MonoBehaviour
     private float _Charge
     {
         get => _readonly_charge;
-        set {
+        set
+        {
             _readonly_charge = value;
         }
     }
@@ -61,7 +63,8 @@ public class Player : MonoBehaviour
     private float _Cooldown
     {
         get => _readonly_cooldown;
-        set {
+        set
+        {
             _readonly_cooldown = value;
         }
     }
@@ -80,7 +83,7 @@ public class Player : MonoBehaviour
     //private SpriteRenderer _gunSprite;
 
     private GunState _gunState = GunState.None;
-    
+
 
     public static event Action OnMeleeStrikePressed;
 
@@ -96,12 +99,15 @@ public class Player : MonoBehaviour
         //} else {
         //    LogUtil.Warn("Player _meleeDestructor missing");
         //}
-        
+
 
         // Initialize the ChargeBar
-        if (_chargeBar != null) {
+        if (_chargeBar != null)
+        {
             _chargeBar.SetMaxCharge(_chargeMax); // Set max charge
-        } else {
+        }
+        else
+        {
             LogUtil.Warn("Player _chargeBar missing");
         }
     }
@@ -114,7 +120,8 @@ public class Player : MonoBehaviour
         switch (_gunState)
         {
             case GunState.Charge:
-                if (_Charge < _chargeMax) {
+                if (_Charge < _chargeMax)
+                {
                     _Charge += _chargeRate * _timingFactor * Time.deltaTime;
                 }
                 break;
@@ -145,14 +152,15 @@ public class Player : MonoBehaviour
     private void Move(Vector2 direction, float speed)
     {
         _moveVelocity = direction * speed;
-        
+
         _rb.MovePosition(
             GameUtils.ComputeEulerStep(_rb.position, _moveVelocity, Time.fixedDeltaTime));
     }
 
     private void AttemptMove(Vector2 moveDirection, float moveSpeed, bool wannaSlide)
     {
-        if (moveDirection == Vector2.zero) { 
+        if (moveDirection == Vector2.zero)
+        {
             return; // No movement input
         }
 
@@ -163,13 +171,16 @@ public class Player : MonoBehaviour
         List<RaycastHit2D> hits = new(); // Array for storing results
         ContactFilter2D filter = new() { useLayerMask = true, layerMask = _collisionMask };
 
-        int hitCount = _rb.Cast(moveDirection, filter, hits, moveDistance + _collisionOfsset); 
+        int hitCount = _rb.Cast(moveDirection, filter, hits, moveDistance + _collisionOfsset);
 
         // Check if there's a collision
-        if (hitCount == 0) {
+        if (hitCount == 0)
+        {
             // No collision, move the player
             Move(moveDirection, moveSpeed);
-        } else if (wannaSlide) {
+        }
+        else if (wannaSlide)
+        {
             // Slide along walls by allowing movement parallel to the collision surface
 
             // Get the first hit information
@@ -179,7 +190,8 @@ public class Player : MonoBehaviour
             Vector2 slideDirection = Vector2.Perpendicular(hit.normal);
 
             // Check which side of the perpendicular is aligned with the original input direction
-            if (Vector2.Dot(slideDirection, moveDirection) < 0) {
+            if (Vector2.Dot(slideDirection, moveDirection) < 0)
+            {
                 slideDirection = -slideDirection; // Flip if the direction is opposite
             }
 
@@ -212,14 +224,27 @@ public class Player : MonoBehaviour
         Vector3 direction = (GetCursorPos() - transform.position).normalized;
         _attack.Attack(direction, _firePoint.position - transform.position, _Charge);
 
+        // Trigger noise event
+        float noiseRadius = 10f; // Example noise radius
+        NoiseManager.MakeNoise(transform.position, noiseRadius);
+
+        // Spawn the noise indicator
+        if (noiseCirclePrefab != null)
+        {
+            var noiseIndicator = Instantiate(noiseCirclePrefab, transform.position, Quaternion.identity);
+            noiseIndicator.GetComponent<NoiseCircle>().Initialize(noiseRadius, 1f); // 1 second duration
+        }
+
         // Store the reached charge value for cooldown visualization
         _reachedCharge = _Charge;
 
         // Set cooldown duration proportional to charge with a minimum threshold
         _scaledCooldownMax = Mathf.Max(_minCooldown, _cooldownMax * _Charge);
 
+        // Reset charge meter to 0
         _Charge = 0f;
     }
+
 
     // Called by Input System
     void OnMeleeStrike()
@@ -232,12 +257,17 @@ public class Player : MonoBehaviour
     // Called by Input System
     void OnAttackCharge(InputValue value)
     {
-        if (Mathf.Approximately(value.Get<float>(), 1f)) { // pressed
-            if (_gunState == GunState.None) {
+        if (Mathf.Approximately(value.Get<float>(), 1f))
+        { // pressed
+            if (_gunState == GunState.None)
+            {
                 _gunState = GunState.Charge;
             }
-        } else if (Mathf.Approximately(value.Get<float>(), 0f)) { // released
-            if (_gunState == GunState.Charge) {
+        }
+        else if (Mathf.Approximately(value.Get<float>(), 0f))
+        { // released
+            if (_gunState == GunState.Charge)
+            {
                 Attack();
                 _gunState = GunState.Cooldown;
             }

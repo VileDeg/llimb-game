@@ -31,7 +31,8 @@ public class EnemyType2 : Enemy
 
         projectile.SetVelocity(dir * _projectileSpeed);
     }
-
+    
+    
 
     public override void ChooseAttack()
     {

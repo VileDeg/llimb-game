@@ -9,5 +9,6 @@ public class EnemyType4 : Enemy
             SetState(new ChaseState(this));
         }
     }
-
+    
+    
 }
