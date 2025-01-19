@@ -1,25 +1,13 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : SingletonBase<ScoreManager>
 {
     [SerializeField] 
     private TextMeshProUGUI scoreText;
 
     private int _score;
-
-    public static ScoreManager Instance { get; set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
-
+    
     private void Start()
     {
         _score = PlayerPrefs.GetInt("Score", 0);
