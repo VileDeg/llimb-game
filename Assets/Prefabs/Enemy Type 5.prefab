@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &530952289345515456
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &3067444735323144518
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &3443823492445730064
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &7750373279055821198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,13 +1256,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalMoveSpeed: 1.5
   _chaseSpeed: 3
-  _detectionRadius: 4
   _randomMoveInterval: 2
   _rechargeInterval: 3
+  _fovAngle: 80
+  _fovRange: 10
+  _rearDetectionRange: 3
+  _detectionCirclePrefab: {fileID: 4266654881792379715, guid: d3095924be7cce242941218969d822e3, type: 3}
+  _detectionConePrefab: {fileID: 923380340782548706, guid: c484bbb13de33d84fa994df50c7c915e, type: 3}
   _projectilePrefab: {fileID: 1875691617403932040, guid: aea9650fe3530fa4a93fa7af476a19f5, type: 3}
+  _firePoint: {fileID: 3506651524101604833}
   _ammoNumber: 8
   _projectileSpeed: 10
-  _firePoint: {fileID: 3506651524101604833}
+  _shootingRange: 10
+  _shootRechargeInterval: 2
 --- !u!195 &7638785015650791312
 NavMeshAgent:
   m_ObjectHideFlags: 0

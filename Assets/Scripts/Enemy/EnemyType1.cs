@@ -17,6 +17,8 @@ public class EnemyType1 : Enemy
             Agent.Move(direction * (_dashSpeed * Time.deltaTime));
         }
     }
+    
+
 
     public override void ChooseAttack()
     {
@@ -32,17 +34,5 @@ public class EnemyType1 : Enemy
         }
     }
 
-    public bool HasLineOfSight()
-    {
-        if (Player == null) return false;
-
-        Vector3 playerPosition = Player.transform.position;
-        Vector3 enemyPosition = transform.position;
-        Vector3 directionToPlayer = playerPosition - enemyPosition;
-
-        // Perform raycast to check for obstacles
-        RaycastHit2D hit = Physics2D.Raycast(enemyPosition, directionToPlayer.normalized, directionToPlayer.magnitude, LayerMask.GetMask("Obstacle"));
-
-        return hit.collider == null; // True if no obstacle blocks the way
-    }
+    
 }

@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &1231703601175656491
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &3023071203584172144
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &3582164865171273818
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,7 +941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &6966317083541260649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,7 +1223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &8558182897846092887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,9 +1523,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalMoveSpeed: 1.5
   _chaseSpeed: 4
-  _detectionRadius: 3
   _randomMoveInterval: 2
   _rechargeInterval: 3
+  _fovAngle: 80
+  _fovRange: 10
+  _rearDetectionRange: 3
+  _detectionCirclePrefab: {fileID: 4266654881792379715, guid: d3095924be7cce242941218969d822e3, type: 3}
+  _detectionConePrefab: {fileID: 923380340782548706, guid: c484bbb13de33d84fa994df50c7c915e, type: 3}
   _rotationSpeed: 600
   _rotationAttackInterval: 6
 --- !u!195 &6799885881635606395

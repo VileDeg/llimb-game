@@ -6,21 +6,11 @@ public class EnemyType5 : Enemy
     [SerializeField] private Transform _firePoint;
     [SerializeField] private int _ammoNumber = 10;
     [SerializeField] private float _projectileSpeed = 7f;
-    [SerializeField] private float _shootingRange = 10f; // Extended range for entering ShootState
+    [SerializeField] private float _shootingRange = 10f;
     [SerializeField] public float _shootRechargeInterval = 2f;
     public int AmmoNumber => _ammoNumber;
     public GameObject ProjectilePrefab => _projectilePrefab;
     public Transform FirePoint => _firePoint;
-
-    public override bool PlayerInDetectionRadius()
-    {
-        if (_player == null) return false;
-
-        // Use the extended shooting range instead of the default detection radius
-        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-        return distanceToPlayer <= _shootingRange;
-    }
-
 
     public override void ChooseAttack()
     {
@@ -58,19 +48,6 @@ public class EnemyType5 : Enemy
         }
     }
 
-    public bool HasLineOfSight()
-    {
-        if (_player == null) return false; // Ensure _player is not null
-
-        Vector3 playerPosition = _player.transform.position;
-        Vector3 enemyPosition = transform.position;
-        Vector3 directionToPlayer = playerPosition - enemyPosition;
-
-        // Perform raycast to check for obstacles
-        RaycastHit2D hit = Physics2D.Raycast(enemyPosition, directionToPlayer.normalized, directionToPlayer.magnitude, LayerMask.GetMask("Obstacle"));
-
-        return hit.collider == null; // True if no obstacle blocks the way
-    }
 
     private new void LookInDirection(Vector3 direction)
     {

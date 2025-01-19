@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &4440961837890784166
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &6411365034346641448
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &6800145362602500701
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 5
-  _maxDamage: 10
+  _velocityDamageMultiplier: 0.07
 --- !u!1 &7600967209751022172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,9 +1214,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalMoveSpeed: 1.5
   _chaseSpeed: 3
-  _detectionRadius: 5
   _randomMoveInterval: 2
   _rechargeInterval: 2
+  _fovAngle: 80
+  _fovRange: 10
+  _rearDetectionRange: 3
+  _detectionCirclePrefab: {fileID: 4266654881792379715, guid: d3095924be7cce242941218969d822e3, type: 3}
+  _detectionConePrefab: {fileID: 923380340782548706, guid: c484bbb13de33d84fa994df50c7c915e, type: 3}
 --- !u!195 &5447978229682705331
 NavMeshAgent:
   m_ObjectHideFlags: 0
