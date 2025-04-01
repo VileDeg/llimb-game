@@ -26,16 +26,6 @@ public class GameManager : SingletonBase<GameManager>
     }
 
     [Header("Scenes")]
-//#if UNITY_EDITOR
-//    [SerializeField]
-//    private SceneAsset mainMenuSceneAsset;
-
-//    [SerializeField]
-//    private SceneAsset youDiedSceneAsset;
-
-//    [SerializeField]
-//    private SceneAsset[] levelSceneAssets;
-//#endif
 
     [SerializeField]
     private string _mainMenuSceneName;
@@ -58,11 +48,6 @@ public class GameManager : SingletonBase<GameManager>
 
     private GameState _readonly_gameState;
 
-    //public string MainMenuSceneName => _mainMenuSceneName;
-    //public string YouDiedSceneName => _youDiedSceneName;
-    //public string[] ListOfLevelNames => _listOfLevelNames;
-    //public int CurrentLevelIndex => _currentLevelIndex;
-
     public GameState CurrentGameState
     {
         get => _readonly_gameState;
@@ -72,7 +57,8 @@ public class GameManager : SingletonBase<GameManager>
     private bool _isLevelTimerActive = false;
     private float _readonly_timeSpentInLevel = 0f;
 
-    // TODO: compute automatically based on enemies in scene. Do not hardcode!
+    // TODO: compute automatically based on enemies in scene.
+    // Is currently hardcoded in editor!
     [SerializeField]
     private int _numEnemiesInLevel = 0;
 
@@ -93,22 +79,6 @@ public class GameManager : SingletonBase<GameManager>
         // Unsubscribe from the event to prevent memory leaks
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
-    //#if UNITY_EDITOR
-    //    private void OnValidate()
-    //    {
-    //        // Update scene names based on SceneAssets for editor usability
-    //        mainMenuSceneName = mainMenuSceneAsset != null ? mainMenuSceneAsset.name : string.Empty;
-    //        youDiedSceneName = youDiedSceneAsset != null ? youDiedSceneAsset.name : string.Empty;
-
-    //        if (levelSceneAssets != null) {
-    //            levelSceneNames = new string[levelSceneAssets.Length];
-    //            for (int i = 0; i < levelSceneAssets.Length; i++) {
-    //                levelSceneNames[i] = levelSceneAssets[i] != null ? levelSceneAssets[i].name : string.Empty;
-    //            }
-    //        }
-    //    }
-    //#endif
 
     private void Update()
     {
@@ -131,8 +101,7 @@ public class GameManager : SingletonBase<GameManager>
             GoToMainMenu();
         }
     }
-
-    
+     
 
     public void GoToMainMenu()
     {

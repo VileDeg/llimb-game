@@ -22,9 +22,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _gunObject;
 
-    //[SerializeField]
-    //private PlayerMeleeDestructor _meleeDestructor;
-
     [SerializeField]
     private float _moveSpeed = 5f;
 
@@ -33,9 +30,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _cooldownRate = 50f;
-
-    //[SerializeField]
-    //private float _meleeDamage = 15f;
 
     [SerializeField]
     private ChargeBar _chargeBar;
@@ -91,15 +85,7 @@ public class Player : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _attack = GetComponent<AShooting>();
-        //_gunSprite = _gunObject.GetComponent<SpriteRenderer>();
         _collisionMask = LayerMask.GetMask("Obstacle");
-
-        //if (_meleeDestructor != null) {
-        //    _meleeDestructor.SetDamage(_meleeDamage);
-        //} else {
-        //    LogUtil.Warn("Player _meleeDestructor missing");
-        //}
-
 
         // Initialize the ChargeBar
         if (_chargeBar != null)
@@ -205,17 +191,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Called by Input System
-    void OnMoveVertical(InputValue value)
-    {
-        _moveVert = value.Get<float>();
-    }
-
-    // Called by Input System
-    void OnMoveHorizontal(InputValue value)
-    {
-        _moveHoriz = value.Get<float>();
-    }
+    
 
     void Attack()
     {
@@ -244,36 +220,6 @@ public class Player : MonoBehaviour
         // Reset charge meter to 0
         _Charge = 0f;
     }
-
-
-    // Called by Input System
-    void OnMeleeStrike()
-    {
-        // Nothing
-        LogUtil.Info("OnMeleeStrike");
-        OnMeleeStrikePressed?.Invoke();
-    }
-
-    // Called by Input System
-    void OnAttackCharge(InputValue value)
-    {
-        if (Mathf.Approximately(value.Get<float>(), 1f))
-        { // pressed
-            if (_gunState == GunState.None)
-            {
-                _gunState = GunState.Charge;
-            }
-        }
-        else if (Mathf.Approximately(value.Get<float>(), 0f))
-        { // released
-            if (_gunState == GunState.Charge)
-            {
-                Attack();
-                _gunState = GunState.Cooldown;
-            }
-        }
-    }
-
 
 
     private void UpdateChargeBar()
@@ -313,6 +259,40 @@ public class Player : MonoBehaviour
     {
         Vector3 mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return mp;
+    }
+
+    /* *******************************
+     * Called by Input System
+     * *******************************/
+
+    void OnMoveVertical(InputValue value)
+    {
+        _moveVert = value.Get<float>();
+    }
+
+    void OnMoveHorizontal(InputValue value)
+    {
+        _moveHoriz = value.Get<float>();
+    }
+
+    void OnMeleeStrike()
+    {
+        LogUtil.Info("OnMeleeStrike");
+        OnMeleeStrikePressed?.Invoke();
+    }
+
+    void OnAttackCharge(InputValue value)
+    {
+        if (Mathf.Approximately(value.Get<float>(), 1f)) { // pressed
+            if (_gunState == GunState.None) {
+                _gunState = GunState.Charge;
+            }
+        } else if (Mathf.Approximately(value.Get<float>(), 0f)) { // released
+            if (_gunState == GunState.Charge) {
+                Attack();
+                _gunState = GunState.Cooldown;
+            }
+        }
     }
 
 }

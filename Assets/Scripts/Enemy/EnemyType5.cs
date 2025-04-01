@@ -6,7 +6,6 @@ public class EnemyType5 : Enemy
     [SerializeField] private Transform _firePoint;
     [SerializeField] private int _ammoNumber = 10;
     [SerializeField] private float _projectileSpeed = 7f;
-    [SerializeField] private float _shootingRange = 10f; // TODO: remove
     [SerializeField] public float _shootRechargeInterval = 2f;
     public int AmmoNumber => _ammoNumber;
     public GameObject ProjectilePrefab => _projectilePrefab;

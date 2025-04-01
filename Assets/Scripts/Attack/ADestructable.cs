@@ -35,7 +35,6 @@ public abstract class ADestructable : MonoBehaviour
 
     protected List<System.Type> _hostileDestructors;
 
-    //public event Action<float> HealthChanged;
     public event Action OnHostileDamageTaken;
     
     private List<SpriteRenderer> _spriteRenderers;
@@ -84,10 +83,6 @@ public abstract class ADestructable : MonoBehaviour
 
     protected void DestroySelf()
     {
-        //if (_explosionPrefab != null) {
-        //    Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-        //}
-
         Destroy(gameObject);
     }
 
@@ -151,8 +146,5 @@ public abstract class ADestructable : MonoBehaviour
 
     protected virtual void OnHealthChanged(float health)
     {
-        //if (_currentHealth <= 0.0f) {
-        //    SelfDestroy();
-        //}
     }
 }

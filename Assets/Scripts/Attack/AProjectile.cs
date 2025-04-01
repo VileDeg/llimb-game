@@ -39,10 +39,6 @@ public abstract class AProjectile : MonoBehaviour
     {
         _rb.MovePosition(
             GameUtils.ComputeEulerStep(_rb.position, _velocity, Time.fixedDeltaTime));
-
-        //if (GameManager.Instance.EscapedLevel(_rb.position, new(1, 1))) {
-        //    Destroy(this.gameObject);
-        //}
     }
 
     protected abstract LayerMask GetCollisionMask();
@@ -51,7 +47,6 @@ public abstract class AProjectile : MonoBehaviour
     {
         if ((_collisionMask.value & (1 << collision.gameObject.layer)) != 0) {
             LogUtil.Info("AProjectile OnCollisionEnter2D, mask pass");
-            //Destroy(this.gameObject, 0.01f);
             Destroy(this.gameObject);
         }
     }
