@@ -1,4 +1,11 @@
-# LL.imb
+# LL.imb - top-down shooter Unity game
+
+## Description
+
+An action top-down shooter game. In early stage of development.
+
+- **Objective**: Kill all enemies to complete the level.
+- **Gameplay**: Move around the level and shoot enemies.
 
 ## Code convention
 
